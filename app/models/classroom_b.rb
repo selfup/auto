@@ -26,6 +26,7 @@ class ClassroomB < ActiveRecord::Base
 
   def self.classrooms
     initialize_vars
+    elements
     @classroom_data = {}
     COHORTS.each do |cohort|
       @classroom_data[cohort] = []
@@ -49,40 +50,43 @@ class ClassroomB < ActiveRecord::Base
 
   def self.module_1
     @classroom_data[COHORTS[3]].map.with_index do |find, index|
-      if find.include?("Classroom B")
+      # binding.pry
+      if find.include?("Classroom A")
         @mod1 << find
-      else
-        @mod1 << "empty"
+        # binding.pry
+      # elsif find.include?("Classroom A") != true
+      #   @mod1 << ""
       end
     end
+    # @mod1.compact
   end
 
   def self.module_2
     @classroom_data[COHORTS[2]].map.with_index do |find, index|
-      if find.include?("Classroom B")
+      if find.include?("Classroom A")
         @mod2 << find
-      else
-        @mod2 << "empty"
+      # elsif find.include?("Classroom A") != true
+      #   @mod2 << "empty"
       end
     end
   end
 
   def self.module_3
     @classroom_data[COHORTS[1]].map.with_index do |find, index|
-      if find.include?("Classroom B")
+      if find.include?("Classroom A")
         @mod3 << find
-      else
-        @mod3 << "empty"
+      # elsif find.include?("Classroom A") != true
+      #   @mod3 << "empty"
       end
     end
   end
 
   def self.module_4
     @classroom_data[COHORTS[0]].map.with_index do |find, index|
-      if find.include?("Classroom B")
+      if find.include?("Classroom A")
         @mod4 << find
-      else
-        @mod4 << "empty"
+      # elsif find.include?("Classroom A") != true
+      #   @mod4 << "empty"
       end
     end
   end
@@ -90,13 +94,13 @@ class ClassroomB < ActiveRecord::Base
   def self.find_b
     link_the_cohort_data
     module_1; module_2; module_3; module_4
-    if @mod1[0].include?("Classroom B")
+    if @mod1[0].include?("Classroom A")
       cohort(COHORTS[3])
-    elsif @mod2[0].include?("Classroom B")
+    elsif @mod2[0].include?("Classroom A")
       cohort(COHORTS[2])
-    elsif @mod3[0].include?("Classroom B")
+    elsif @mod3[0].include?("Classroom A")
       cohort(COHORTS[1])
-    elsif @mod4[0].include?("Classroom B")
+    elsif @mod4[0].include?("Classroom A")
       cohort(COHORTS[0])
     else
       tbd
@@ -104,7 +108,7 @@ class ClassroomB < ActiveRecord::Base
   end
 
   def self.cohort(cohort_num)
-    ClassroomB.first.update(cohort: cohort_num.rjust(10, " "), teacher: "TDB")
+    ClassroomB.first.update(cohort: cohort_num.ljust(14, " "), teacher: "TDB")
   end
 
   def self.tbd
