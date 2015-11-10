@@ -11,7 +11,13 @@ class ClassroomB < ActiveRecord::Base
   COHORTS = %w(1505 1507 1508 1510)
 
   def self.date
-    Time.now.to_s.split(" ")[0]
+    if Time.now.asctime.split[0] == "Sat"
+      Time.at(Time.now.to_i - 86400).to_s.split[0]
+    elsif Time.now.asctime.split[0] == "Sun"
+      Time.at(Time.now.to_i - 172800).to_s.split[0]
+    else
+      Time.now.to_s.split(" ")[0]
+    end
   end
 
   def self.content
