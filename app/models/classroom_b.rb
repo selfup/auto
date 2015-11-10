@@ -1,12 +1,11 @@
 class ClassroomB < ActiveRecord::Base
 
   def self.initialize_vars
-    @mod1 = []
-    @mod2 = []
-    @mod3 = []
-    @mod4 = []
-    @room = []
-    @class = []
+    @mod1 = ["N/A"]
+    @mod2 = ["N/A"]
+    @mod3 = ["N/A"]
+    @mod4 = ["N/A"]
+    @classroom_data = {}
   end
 
   COHORTS = %w(1505 1507 1508 1510)
@@ -27,7 +26,6 @@ class ClassroomB < ActiveRecord::Base
   def self.classrooms
     initialize_vars
     elements
-    @classroom_data = {}
     COHORTS.each do |cohort|
       @classroom_data[cohort] = []
     end
@@ -50,21 +48,16 @@ class ClassroomB < ActiveRecord::Base
 
   def self.module_1
     @classroom_data[COHORTS[3]].map.with_index do |find, index|
-      # binding.pry
       if find.include?("Classroom A")
-        @mod1 << find
-        # binding.pry
-      elsif find.include?("Classroom A") != true
-        @mod1 << "Not here"
+        @mod1.unshift(find)
       end
     end
-    # @mod1.compact
   end
 
   def self.module_2
     @classroom_data[COHORTS[2]].map.with_index do |find, index|
       if find.include?("Classroom A")
-        @mod2 << find
+        @mod2.unshift(find)
       end
     end
   end
@@ -72,7 +65,7 @@ class ClassroomB < ActiveRecord::Base
   def self.module_3
     @classroom_data[COHORTS[1]].map.with_index do |find, index|
       if find.include?("Classroom A")
-        @mod3 << find
+        @mod3.unshift(find)
       end
     end
   end
@@ -80,7 +73,7 @@ class ClassroomB < ActiveRecord::Base
   def self.module_4
     @classroom_data[COHORTS[0]].map.with_index do |find, index|
       if find.include?("Classroom A")
-        @mod4 << find
+        @mod4.unshift(find)
       end
     end
   end
@@ -88,7 +81,6 @@ class ClassroomB < ActiveRecord::Base
   def self.find_b
     link_the_cohort_data
     module_1; module_2; module_3; module_4
-    @mod1 << "Nope"; @mod2 << "Nope"; @mod3 << "Nope"; @mod4 << "Nope"
     if @mod1[0].include?("Classroom A")
       cohort(COHORTS[3])
     elsif @mod2[0].include?("Classroom A")
