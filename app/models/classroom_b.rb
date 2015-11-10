@@ -15,7 +15,7 @@ class ClassroomB < ActiveRecord::Base
   end
 
   def self.content
-    @content ||= Nokogiri::HTML(open("http://today.turing.io/outlines/#{date}"))
+    @content ||= Nokogiri::HTML(open("http://today.turing.io/outlines/2015-11-10"))
   end
 
   def self.elements
@@ -78,6 +78,15 @@ class ClassroomB < ActiveRecord::Base
     end
   end
 
+  def self.check_for_conflicts(conflicts)
+    conflicts = conflicts.reject { |element| element == 'No'  }
+    if conflicts.length >= 2
+      "Conflict!"
+    else
+      "Good to Go"
+    end
+  end
+
   def self.conflict?
     link_the_cohort_data
     module_1; module_2; module_3; module_4
@@ -90,12 +99,7 @@ class ClassroomB < ActiveRecord::Base
         conflicts << "No"
       end
     end
-    conflicts = conflicts.reject { |element| element == 'No'  }
-    if conflicts.length >= 2
-      "Conflict!"
-    else
-      "Good to Go"
-    end
+    check_for_conflicts(conflicts)
   end
 
   def self.find_b
