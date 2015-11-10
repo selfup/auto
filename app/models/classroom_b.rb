@@ -92,9 +92,9 @@ class ClassroomB < ActiveRecord::Base
     end
     conflicts = conflicts.reject { |element| element == 'No'  }
     if conflicts.length >= 2
-      false
+      "Conflict!"
     else
-      true
+      "Good to Go"
     end
   end
 
@@ -127,7 +127,7 @@ class ClassroomB < ActiveRecord::Base
   end
 
   def self.update_info
-    if conflict? == false
+    if conflict? == "Conflict!"
       conflicting_cohorts
     else
       find_b
