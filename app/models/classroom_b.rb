@@ -48,7 +48,7 @@ class ClassroomB < ActiveRecord::Base
 
   def self.module_1
     @classroom_data[COHORTS[3]].map.with_index do |find, index|
-      if find.include?("Classroom A")
+      if find.include?("Classroom B")
         @mod1.unshift(find)
       end
     end
@@ -56,7 +56,7 @@ class ClassroomB < ActiveRecord::Base
 
   def self.module_2
     @classroom_data[COHORTS[2]].map.with_index do |find, index|
-      if find.include?("Classroom A")
+      if find.include?("Classroom B")
         @mod2.unshift(find)
       end
     end
@@ -64,7 +64,7 @@ class ClassroomB < ActiveRecord::Base
 
   def self.module_3
     @classroom_data[COHORTS[1]].map.with_index do |find, index|
-      if find.include?("Classroom A")
+      if find.include?("Classroom B")
         @mod3.unshift(find)
       end
     end
@@ -72,22 +72,42 @@ class ClassroomB < ActiveRecord::Base
 
   def self.module_4
     @classroom_data[COHORTS[0]].map.with_index do |find, index|
-      if find.include?("Classroom A")
+      if find.include?("Classroom B")
         @mod4.unshift(find)
       end
+    end
+  end
+
+  def self.conflict?
+    link_the_cohort_data
+    module_1; module_2; module_3; module_4
+    modules = [@mod1[0], @mod2[0], @mod3[0], @mod4[0]]
+    conflicts = []
+    modules.map do |conflict|
+      if conflict.include?("Classroom B")
+        conflicts << "Yes"
+      else
+        conflicts << "No"
+      end
+    end
+    conflicts = conflicts.reject { |element| element == 'No'  }
+    if conflicts.length >= 2
+      false
+    else
+      true
     end
   end
 
   def self.find_b
     link_the_cohort_data
     module_1; module_2; module_3; module_4
-    if @mod1[0].include?("Classroom A")
+    if @mod1[0].include?("Classroom B")
       cohort(COHORTS[3])
-    elsif @mod2[0].include?("Classroom A")
+    elsif @mod2[0].include?("Classroom B")
       cohort(COHORTS[2])
-    elsif @mod3[0].include?("Classroom A")
+    elsif @mod3[0].include?("Classroom B")
       cohort(COHORTS[1])
-    elsif @mod4[0].include?("Classroom A")
+    elsif @mod4[0].include?("Classroom B")
       cohort(COHORTS[0])
     else
       tbd
@@ -102,8 +122,16 @@ class ClassroomB < ActiveRecord::Base
     ClassroomB.first.update(cohort: "TBD      ", teacher: "TBD      ")
   end
 
+  def self.conflicting_cohorts
+    ClassroomB.first.update(cohort: "Conflict  ", teacher: "Conflict  ")
+  end
+
   def self.update_info
-    find_b
+    if conflict? == false
+      conflicting_cohorts
+    else
+      find_b
+    end
   end
 
 end
