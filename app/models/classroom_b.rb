@@ -89,7 +89,6 @@ class ClassroomB < ActiveRecord::Base
     link_the_cohort_data
     module_1; module_2; module_3; module_4
     @mod1 << "Nope"; @mod2 << "Nope"; @mod3 << "Nope"; @mod4 << "Nope"
-    binding.pry
     if @mod1[0].include?("Classroom A")
       cohort(COHORTS[3])
     elsif @mod2[0].include?("Classroom A")
