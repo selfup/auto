@@ -8,7 +8,8 @@ class ClassroomB < ActiveRecord::Base
     @classroom_data = {}
   end
 
-  COHORTS = %w(1505 1507 1508 1510)
+  COHORTS  = %w(1505 1507 1508 1510)
+  TEACHERS = %w(Jeff Josh Rachel Jorge Steve Horace Andrew Mike Tess)
 
   def self.date
     if Time.now.asctime.split[0] == "Sat"
@@ -21,7 +22,7 @@ class ClassroomB < ActiveRecord::Base
   end
 
   def self.content
-    @content ||= Nokogiri::HTML(open("http://today.turing.io/outlines/2015-11-10"))
+    @content ||= Nokogiri::HTML(open("http://today.turing.io/outlines/#{date}"))
   end
 
   def self.elements
@@ -54,7 +55,7 @@ class ClassroomB < ActiveRecord::Base
 
   def self.module_1
     @classroom_data[COHORTS[3]].map.with_index do |find, index|
-      if find.include?("Big Workspace")
+      if find.include?("Classroom B")
         @mod1.unshift(find)
       end
     end
@@ -62,7 +63,7 @@ class ClassroomB < ActiveRecord::Base
 
   def self.module_2
     @classroom_data[COHORTS[2]].map.with_index do |find, index|
-      if find.include?("Big Workspace")
+      if find.include?("Classroom B")
         @mod2.unshift(find)
       end
     end
@@ -70,7 +71,7 @@ class ClassroomB < ActiveRecord::Base
 
   def self.module_3
     @classroom_data[COHORTS[1]].map.with_index do |find, index|
-      if find.include?("Big Workspace")
+      if find.include?("Classroom B")
         @mod3.unshift(find)
       end
     end
@@ -78,7 +79,7 @@ class ClassroomB < ActiveRecord::Base
 
   def self.module_4
     @classroom_data[COHORTS[0]].map.with_index do |find, index|
-      if find.include?("Big Workspace")
+      if find.include?("Classroom B")
         @mod4.unshift(find)
       end
     end
@@ -99,7 +100,7 @@ class ClassroomB < ActiveRecord::Base
     modules = [@mod1[0], @mod2[0], @mod3[0], @mod4[0]]
     conflicts = []
     modules.map do |conflict|
-      if conflict.include?("Big Workspace")
+      if conflict.include?("Classroom B")
         conflicts << "Yes"
       else
         conflicts << "No"
@@ -111,17 +112,21 @@ class ClassroomB < ActiveRecord::Base
   def self.find_b
     link_the_cohort_data
     module_1; module_2; module_3; module_4
-    if @mod1[0].include?("Big Workspace")
+    if @mod1[0].include?("Classroom B")
       cohort(COHORTS[3])
-    elsif @mod2[0].include?("Big Workspace")
+    elsif @mod2[0].include?("Classroom B")
       cohort(COHORTS[2])
-    elsif @mod3[0].include?("Big Workspace")
+    elsif @mod3[0].include?("Classroom B")
       cohort(COHORTS[1])
-    elsif @mod4[0].include?("Big Workspace")
+    elsif @mod4[0].include?("Classroom B")
       cohort(COHORTS[0])
     else
       tbd
     end
+  end
+
+  def self.find_teacher
+    # something goes here
   end
 
   def self.cohort(cohort_num)
