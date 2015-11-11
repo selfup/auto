@@ -4,6 +4,15 @@ Rails.application.routes.draw do
       resources :classroom_bs, defaults: { format: 'json' } do
 
       end
+      resources :classroom_as, defaults: { format: 'json' } do
+
+      end
+      resources :classroom_cs, defaults: { format: 'json' } do
+
+      end
+      resources :big_workspaces, defaults: { format: 'json' } do
+
+      end
     end
   end
 end

@@ -1,0 +1,9 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  cohort: MyString
+  teacher: MyString
+
+two:
+  cohort: MyString
+  teacher: MyString
