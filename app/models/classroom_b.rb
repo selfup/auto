@@ -129,7 +129,7 @@ class ClassroomB < ActiveRecord::Base
   end
 
   def self.tbd
-    ClassroomB.first.update(cohort: "Check Today!", teacher: "I Don't Know :P")
+    ClassroomB.first.update(cohort: "Check Today!", teacher: "I Dunno :P")
   end
 
   def self.conflicting_cohorts
