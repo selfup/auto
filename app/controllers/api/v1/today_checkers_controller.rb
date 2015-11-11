@@ -3,6 +3,6 @@ class Api::V1::TodayCheckersController < ApplicationController
 
   def index
     TodayChecker.check
-    respond_with "Check"
+    respond_with ClassroomA.last
   end
 end

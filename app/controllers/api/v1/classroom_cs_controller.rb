@@ -3,6 +3,6 @@ class Api::V1::ClassroomCsController < ApplicationController
 
   def index
     # ClassroomC.update_info
-    respond_with ClassroomC.all
+    respond_with ClassroomC.first
   end
 end
