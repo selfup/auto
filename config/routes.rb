@@ -13,6 +13,9 @@ Rails.application.routes.draw do
       resources :big_workspaces, defaults: { format: 'json' } do
 
       end
+      resources :today_checkers, defaults: { format: 'json' } do
+
+      end
     end
   end
 end

@@ -13,7 +13,6 @@ gem 'responders'
 gem 'simplecov'
 gem 'hurley'
 gem "active_model_serializers", github: "rails-api/active_model_serializers"
-gem 'whenever', :require => false
 gem 'slack-notifier'
 
 group :development, :test do
