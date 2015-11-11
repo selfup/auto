@@ -54,7 +54,7 @@ class ClassroomB < ActiveRecord::Base
 
   def self.module_1
     @classroom_data[COHORTS[3]].map.with_index do |find, index|
-      if find.include?("Classroom B")
+      if find.include?("Big Workspace")
         @mod1.unshift(find)
       end
     end
@@ -62,7 +62,7 @@ class ClassroomB < ActiveRecord::Base
 
   def self.module_2
     @classroom_data[COHORTS[2]].map.with_index do |find, index|
-      if find.include?("Classroom B")
+      if find.include?("Big Workspace")
         @mod2.unshift(find)
       end
     end
@@ -70,7 +70,7 @@ class ClassroomB < ActiveRecord::Base
 
   def self.module_3
     @classroom_data[COHORTS[1]].map.with_index do |find, index|
-      if find.include?("Classroom B")
+      if find.include?("Big Workspace")
         @mod3.unshift(find)
       end
     end
@@ -78,7 +78,7 @@ class ClassroomB < ActiveRecord::Base
 
   def self.module_4
     @classroom_data[COHORTS[0]].map.with_index do |find, index|
-      if find.include?("Classroom B")
+      if find.include?("Big Workspace")
         @mod4.unshift(find)
       end
     end
@@ -99,7 +99,7 @@ class ClassroomB < ActiveRecord::Base
     modules = [@mod1[0], @mod2[0], @mod3[0], @mod4[0]]
     conflicts = []
     modules.map do |conflict|
-      if conflict.include?("Classroom B")
+      if conflict.include?("Big Workspace")
         conflicts << "Yes"
       else
         conflicts << "No"
@@ -111,13 +111,13 @@ class ClassroomB < ActiveRecord::Base
   def self.find_b
     link_the_cohort_data
     module_1; module_2; module_3; module_4
-    if @mod1[0].include?("Classroom B")
+    if @mod1[0].include?("Big Workspace")
       cohort(COHORTS[3])
-    elsif @mod2[0].include?("Classroom B")
+    elsif @mod2[0].include?("Big Workspace")
       cohort(COHORTS[2])
-    elsif @mod3[0].include?("Classroom B")
+    elsif @mod3[0].include?("Big Workspace")
       cohort(COHORTS[1])
-    elsif @mod4[0].include?("Classroom B")
+    elsif @mod4[0].include?("Big Workspace")
       cohort(COHORTS[0])
     else
       tbd
@@ -129,7 +129,7 @@ class ClassroomB < ActiveRecord::Base
   end
 
   def self.tbd
-    ClassroomB.first.update(cohort: "TBD      ", teacher: "TBD      ")
+    ClassroomB.first.update(cohort: "Check Today!", teacher: "I Don't Know :P")
   end
 
   def self.conflicting_cohorts
