@@ -142,15 +142,28 @@ class ClassroomB < ActiveRecord::Base
 
   def self.cohort(cohort_num)
     find_teacher
-    ClassroomB.first.update(cohort: cohort_num.ljust(14, " "), teacher: @teacher[0])
+    ClassroomB.first.update(
+                              cohort: cohort_num.ljust(14, " "),
+                              teacher: @teacher[0].ljust(14, " ")
+                            )
   end
 
   def self.tbd
-    ClassroomB.first.update(cohort: "Check Today!", teacher: "I Dunno :P")
+    check_today = "Check Today!"
+    i_dunno     = "I Dunno :P"
+    ClassroomC.first.update(
+                              cohort: check_today.ljust(14, " "),
+                              teacher: i_dunno.ljust(14, " ")
+                            )
   end
 
   def self.conflicting_cohorts
-    ClassroomB.first.update(cohort: "Conflict  ", teacher: "Help    ")
+    conflict_message = "Conflict"
+    help_message = "Help"
+    ClassroomB.first.update(
+                              cohort: conflict_message.ljust(14, " "),
+                              teacher: help_message.ljust(14, " ")
+                            )
   end
 
   def self.update_info
