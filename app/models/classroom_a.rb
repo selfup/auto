@@ -151,7 +151,7 @@ class ClassroomA < ActiveRecord::Base
   def self.tbd
     check_today = "Check Today!"
     i_dunno     = "I Dunno :P"
-    ClassroomC.first.update(
+    ClassroomA.first.update(
                               cohort: check_today.ljust(14, " "),
                               teacher: i_dunno.ljust(14, " ")
                             )
