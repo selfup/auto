@@ -1,10 +1,11 @@
 class ClassroomB < ActiveRecord::Base
 
   def self.initialize_vars
-    @mod1 = ["N/A"]
-    @mod2 = ["N/A"]
-    @mod3 = ["N/A"]
-    @mod4 = ["N/A"]
+    @mod1           = ["N/A"]
+    @mod2           = ["N/A"]
+    @mod3           = ["N/A"]
+    @mod4           = ["N/A"]
+    @teacher        = ["Unknown"]
     @classroom_data = {}
   end
 
@@ -126,11 +127,22 @@ class ClassroomB < ActiveRecord::Base
   end
 
   def self.find_teacher
-    # something goes here
+    TEACHERS.map do |teacher|
+      if @mod1[0].include?(teacher)
+        @teacher.unshift(teacher)
+      elsif @mod2[0].include?(teacher)
+        @teacher.unshift(teacher)
+      elsif @mod3[0].include?(teacher)
+        @teacher.unshift(teacher)
+      elsif @mod4[0].include?(teacher)
+        @teacher.unshift(teacher)
+      end
+    end
   end
 
   def self.cohort(cohort_num)
-    ClassroomB.first.update(cohort: cohort_num.ljust(14, " "), teacher: "9:00 AM")
+    find_teacher
+    ClassroomB.first.update(cohort: cohort_num.ljust(14, " "), teacher: @teacher[0])
   end
 
   def self.tbd
@@ -138,7 +150,7 @@ class ClassroomB < ActiveRecord::Base
   end
 
   def self.conflicting_cohorts
-    ClassroomB.first.update(cohort: "Conflict  ", teacher: "Conflict  ")
+    ClassroomB.first.update(cohort: "Conflict  ", teacher: "Help    ")
   end
 
   def self.update_info
