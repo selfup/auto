@@ -12,20 +12,27 @@ class Parser
     @classroom_data = {}
   end
 
-  def vars
-    @wow = "wow"
-  end
-
   COHORTS  = %w(1505 1507 1508 1510)
   TEACHERS = %w(Jeff Josh Rachel Jorge Steve Horace Andrew Mike Tess)
 
+  def day_time
+    Time.now.asctime.split[0]
+  end
+
   def date
-    if Time.now.asctime.split[0] == "Sat"
+    if day_time == "Sat"
       Time.at(Time.now.to_i - 86400).to_s.split[0]
-    elsif Time.now.asctime.split[0] == "Sun"
+    elsif day_time == "Sun"
       Time.at(Time.now.to_i - 172800).to_s.split[0]
     else
       Time.now.to_s.split(" ")[0]
+    end
+  end
+
+  def weekend?
+    if day_time == "Fri" || day_time == "Sat" || day_time == "Sun"
+      weekend!
+      puts "week-end"
     end
   end
 
@@ -34,12 +41,19 @@ class Parser
   end
 
   def elements
-    data = content.text.gsub!("\n", "").split("  ")
+    doc = content.text
+    if doc.include?("Generator Script")
+      until doc.include?("Generator Script") != true
+        sleep(5)
+        puts "**fetching again**"
+        content
+      end
+    end
+    data = doc.gsub!("\n", "").split("  ")
     data.reject { |element| element == ''  }
   end
 
   def classrooms
-    vars
     elements
     COHORTS.each do |cohort|
       @classroom_data[cohort] = []
@@ -121,13 +135,13 @@ class Parser
     link_the_cohort_data
     module_1; module_2; module_3; module_4
     if @mod1[0].include?(@location)
-      cohort(COHORTS[3])
+      cohort(COHORTS[3]); weekend!
     elsif @mod2[0].include?(@location)
-      cohort(COHORTS[2])
+      cohort(COHORTS[2]); weekend!
     elsif @mod3[0].include?(@location)
-      cohort(COHORTS[1])
+      cohort(COHORTS[1]); weekend!
     elsif @mod4[0].include?(@location)
-      cohort(COHORTS[0])
+      cohort(COHORTS[0]); weekend!
     else
       tbd
     end
@@ -170,6 +184,15 @@ class Parser
     endpoint_model.first.update(
                                 cohort: conflict_message.ljust(14, " "),
                                 teacher: help_message.ljust(14, " ")
+                              )
+  end
+
+  def weekend!
+    friday_message = "Weekend!!!"
+    weekend_message = "Check Today :D"
+    endpoint_model.first.update(
+                                cohort: friday_message.ljust(14, " "),
+                                teacher: weekend_message.ljust(14, " ")
                               )
   end
 
