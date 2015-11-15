@@ -7,7 +7,7 @@ class Api::V1::ClassroomBsControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test '#index returns the right number of InvoiceItems' do
+  test '#index returns the right number of ClassroomB JSON objects' do
     number_of_invoiceitems = ClassroomB.first
 
     get :index, format: :json

@@ -7,7 +7,7 @@ class Api::V1::BigWorkspacesControllerTest < ActionController::TestCase
     assert_response :success
   end
 
-  test '#index returns the right number of InvoiceItems' do
+  test '#index returns the right number of BigWorkspace JSON objects' do
     number_of_invoiceitems = BigWorkspace.first
 
     get :index, format: :json
