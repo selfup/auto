@@ -20,7 +20,7 @@ class TodayChecker < ActiveRecord::Base
     repo_call
     if TodayChecker.first.repo_day != repo_call
       @notifier.ping "I am a robot. How can you see me :P - This is a Development ENV test :)"
-      sleep(120)
+      # sleep(120)
       TodayChecker.first.update(repo_day: repo_call)
       ClassroomA.update_info
       ClassroomB.update_info

@@ -1,9 +1,6 @@
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
 
 one:
-  cohort: MyString
-  teacher: MyString
-
-two:
-  cohort: MyString
-  teacher: MyString
+  id: 1
+  cohort: 1508
+  teacher: Rachel

@@ -32,7 +32,6 @@ class Parser
   def weekend?
     if day_time == "Fri" || day_time == "Sat" || day_time == "Sun"
       weekend!
-      puts "week-end"
     end
   end
 
@@ -135,13 +134,13 @@ class Parser
     link_the_cohort_data
     module_1; module_2; module_3; module_4
     if @mod1[0].include?(@location)
-      cohort(COHORTS[3]); weekend!
+      cohort(COHORTS[3]); weekend?
     elsif @mod2[0].include?(@location)
-      cohort(COHORTS[2]); weekend!
+      cohort(COHORTS[2]); weekend?
     elsif @mod3[0].include?(@location)
-      cohort(COHORTS[1]); weekend!
+      cohort(COHORTS[1]); weekend?
     elsif @mod4[0].include?(@location)
-      cohort(COHORTS[0]); weekend!
+      cohort(COHORTS[0]); weekend?
     else
       tbd
     end
