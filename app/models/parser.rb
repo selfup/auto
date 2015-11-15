@@ -1,15 +1,16 @@
 class Parser
-  attr_reader :location, :endpoint_model
+  attr_reader :location, :endpoint_model, :modified_date
 
-  def initialize(location, endpoint_model)
+  def initialize(location, endpoint_model, modified_date = "")
     @location       = location
-    @endpoint_model          = endpoint_model
+    @endpoint_model = endpoint_model
     @mod1           = ["N/A"]
     @mod2           = ["N/A"]
     @mod3           = ["N/A"]
     @mod4           = ["N/A"]
     @teacher        = ["Unknown"]
     @classroom_data = {}
+    @modified_date  = modified_date
   end
 
   COHORTS  = %w(1505 1507 1508 1510)
@@ -36,7 +37,11 @@ class Parser
   end
 
   def content
-    @content ||= Nokogiri::HTML(open("http://today.turing.io/outlines/#{date}"))
+    if @modified_date == ""
+      @content ||= Nokogiri::HTML(open("http://today.turing.io/outlines/#{date}"))
+    elsif @modified_date != ""
+      @content ||= Nokogiri::HTML(open("http://today.turing.io/outlines/#{@modified_date}"))
+    end
   end
 
   def elements
