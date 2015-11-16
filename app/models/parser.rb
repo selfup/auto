@@ -2,15 +2,15 @@ class Parser
   attr_reader :location, :endpoint_model, :modified_date
 
   def initialize(location, endpoint_model, modified_date = "")
-    @location       ||= location
-    @endpoint_model ||= endpoint_model
-    @mod1           ||= ["N/A"]
-    @mod2           ||= ["N/A"]
-    @mod3           ||= ["N/A"]
-    @mod4           ||= ["N/A"]
-    @teacher        ||= ["Unknown"]
-    @classroom_data ||= {}
-    @modified_date  ||= modified_date
+    @location       = location
+    @endpoint_model = endpoint_model
+    @mod1           = ["N/A"]
+    @mod2           = ["N/A"]
+    @mod3           = ["N/A"]
+    @mod4           = ["N/A"]
+    # @teacher        = ["Unknown"]
+    @classroom_data = {}
+    @modified_date  = modified_date
   end
 
   COHORTS  = %w(1505 1507 1508 1510)
@@ -80,47 +80,21 @@ class Parser
   end
 
   def module_1
-    @classroom_data[COHORTS[3]].map.with_index do |find, index|
-      next if find.include?("(9")
-        # binding.pry
-        if find.include?(@location)
-          @mod1.unshift(find)
-        end
-      # end
-    end
+    @mod1.unshift(@classroom_data[COHORTS[3]][2])
   end
 
   def module_2
-    @classroom_data[COHORTS[2]].map.with_index do |find, index|
-      next if find.include?("(9")
-        # binding.pry
-        if find.include?(@location)
-          @mod2.unshift(find)
-        end
-      # end
-    end
+    @mod2.unshift(@classroom_data[COHORTS[2]][2])
+    # binding.pry
   end
 
   def module_3
-    @classroom_data[COHORTS[1]].map.with_index do |find, index|
-      next if find.include?("(9")
-        # binding.pry
-        if find.include?(@location)
-          @mod3.unshift(find)
-        end
-      # end
-    end
+    @mod3.unshift(@classroom_data[COHORTS[1]][2])
+    # binding.pry
   end
 
   def module_4
-    @classroom_data[COHORTS[0]].map.with_index do |find, index|
-      next if find.include?("(9")
-        # binding.pry
-        if find.include?(@location)
-          @mod4.unshift(find)
-        end
-      # end
-    end
+    @mod4.unshift(@classroom_data[COHORTS[0]][2])
   end
 
   def check_for_conflicts(conflicts)
@@ -151,13 +125,13 @@ class Parser
     link_the_cohort_data
     module_1; module_2; module_3; module_4
     if @mod1[0].include?(@location)
-      cohort(COHORTS[3]); weekend?
+      cohort(COHORTS[3]); find_teacher
     elsif @mod2[0].include?(@location)
-      cohort(COHORTS[2]); weekend?
+      cohort(COHORTS[2]); find_teacher
     elsif @mod3[0].include?(@location)
-      cohort(COHORTS[1]); weekend?
+      cohort(COHORTS[1]); find_teacher
     elsif @mod4[0].include?(@location)
-      cohort(COHORTS[0]); weekend?
+      cohort(COHORTS[0]); find_teacher
     else
       tbd
     end
@@ -166,23 +140,35 @@ class Parser
   def find_teacher
     TEACHERS.map do |teacher|
       if @mod1[0].include?(teacher)
-        @teacher.unshift(teacher)
+        teacher_name(teacher)
+        # binding.pry
       elsif @mod2[0].include?(teacher)
-        @teacher.unshift(teacher)
+        teacher_name(teacher)
+        # binding.pry
       elsif @mod3[0].include?(teacher)
-        @teacher.unshift(teacher)
+        teacher_name(teacher)
+        # binding.pry
       elsif @mod4[0].include?(teacher)
-        @teacher.unshift(teacher)
+        teacher_name(teacher)
+        # binding.pry
       end
     end
   end
 
-  def cohort(cohort_num)
+  def cohort(cohort_num, teacher)
+    weekend?
     find_teacher
     endpoint_model.first.update(
                                 cohort: cohort_num.ljust(14, " "),
-                                teacher: @teacher[0].ljust(14, " ")
-                              )
+                                teacher: teacher.ljust(14, " ")
+                               )
+  end
+
+  def teacher_name(teacher)
+    weekend?
+    endpoint_model.first.update(
+                                teacher: teacher.ljust(14, " ")
+                               )
   end
 
   def tbd

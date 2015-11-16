@@ -1,10 +1,10 @@
 class TodayChecker < ActiveRecord::Base
 
   def self.initialize_vars
-    @user = "turingschool"
-    @repo = "today"
-    # @user = "selfup"
-    # @repo = "rails-engine"
+    # @user = "turingschool"
+    # @repo = "today"
+    @user = "selfup"
+    @repo = "rails-engine"
     @connection = Hurley::Client.new("https://api.github.com")
     @connection.query[:access_token] = ENV["TOKEN"]
     @connection.header[:accept] = "application/vnd.github+json"
