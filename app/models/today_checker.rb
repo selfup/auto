@@ -1,10 +1,10 @@
 class TodayChecker < ActiveRecord::Base
 
   def self.initialize_vars
-    # @user = "turingschool"
-    # @repo = "today"
-    @user = "selfup"
-    @repo = "rails-engine"
+    @user = "turingschool"
+    @repo = "today"
+    # @user = "selfup"
+    # @repo = "rails-engine"
     @connection = Hurley::Client.new("https://api.github.com")
     @connection.query[:access_token] = ENV["TOKEN"]
     @connection.header[:accept] = "application/vnd.github+json"
@@ -19,8 +19,8 @@ class TodayChecker < ActiveRecord::Base
     initialize_vars
     repo_call
     if TodayChecker.first.repo_day != repo_call
-      # @notifier.ping "I am a robot. How can you see me :P - This is a Development ENV test :)"
-      # sleep(120)
+      @notifier.ping "I am a robot. How can you see me :P - This is a Development ENV test :)"
+      sleep(90)
       TodayChecker.first.update(repo_day: repo_call)
       ClassroomA.update_info
       ClassroomB.update_info
