@@ -85,12 +85,10 @@ class Parser
 
   def module_2
     @mod2.unshift(@classroom_data[COHORTS[2]][2])
-    # binding.pry
   end
 
   def module_3
     @mod3.unshift(@classroom_data[COHORTS[1]][2])
-    # binding.pry
   end
 
   def module_4
@@ -125,27 +123,21 @@ class Parser
     link_the_cohort_data
     module_1; module_2; module_3; module_4
     if @mod1[0].include?(@location)
-      cohort(COHORTS[3])
+      find_teacher(@mod1[0]); cohort(COHORTS[3])
     elsif @mod2[0].include?(@location)
-      cohort(COHORTS[2])
+      find_teacher(@mod2[0]); cohort(COHORTS[2])
     elsif @mod3[0].include?(@location)
-      cohort(COHORTS[1])
+      find_teacher(@mod3[0]); cohort(COHORTS[1])
     elsif @mod4[0].include?(@location)
-      cohort(COHORTS[0])
+      find_teacher(@mod4[0]); cohort(COHORTS[0])
     else
       tbd
     end
   end
 
-  def find_teacher
+  def find_teacher(mod_teacher)
     TEACHERS.map do |teacher|
-      if @mod1[0].include?(teacher)
-        @teacher.unshift(teacher)
-      elsif @mod2[0].include?(teacher)
-        @teacher.unshift(teacher)
-      elsif @mod3[0].include?(teacher)
-        @teacher.unshift(teacher)
-      elsif @mod4[0].include?(teacher)
+      if mod_teacher.include?(teacher)
         @teacher.unshift(teacher)
       end
     end
@@ -153,19 +145,11 @@ class Parser
 
   def cohort(cohort_num)
     weekend?
-    find_teacher
     endpoint_model.first.update(
                                 cohort: cohort_num.ljust(14, " "),
                                 teacher: @teacher[0].ljust(14, " ")
                                )
     @teacher = ["Unknown"]
-  end
-
-  def teacher_name(teacher)
-    weekend?
-    endpoint_model.first.update(
-                                teacher: teacher.ljust(14, " ")
-                               )
   end
 
   def tbd
