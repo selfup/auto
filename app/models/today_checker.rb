@@ -19,7 +19,7 @@ class TodayChecker < ActiveRecord::Base
     initialize_vars
     repo_call
     if TodayChecker.first.repo_day != repo_call
-      @notifier.ping "I am a robot. How can you see me :P - This is a Development ENV test :)"
+      @notifier.ping "Hey! today.turing.io just got updated! LCD screens will update in 90 seconds :)"
       sleep(90)
       TodayChecker.first.update(repo_day: repo_call)
       ClassroomA.update_info
