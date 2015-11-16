@@ -1,13 +1,13 @@
 require 'test_helper'
 
 class ParserTest < ActiveSupport::TestCase
-  test "there is a conflict" do
+  test "it knows there is a classroom conflict" do
     parser = Parser.new("Classroom B", ClassroomB, "2015-11-10")
     parser.update_info
     assert_equal parser.modified_date, "2015-11-10"
   end
 
-  test "it is the weekend" do
+  test "it firgures out that it is the weekend" do
     parser = Parser.new("Classroom B", ClassroomB, "2015-11-13")
     parser.update_info
     assert_equal parser.modified_date, "2015-11-13"
@@ -22,7 +22,7 @@ class ParserTest < ActiveSupport::TestCase
     assert_equal parser.day_time, Time.now.asctime.split[0]
   end
 
-  test "the machine doesn't know" do
+  test "it outputs that it does not know when there is no teacher or cohort for a certain classroom" do
     parser = Parser.new("Big Workspace", BigWorkspace, "2015-11-10")
     parser.update_info
     assert_equal parser.modified_date, "2015-11-10"
@@ -30,15 +30,36 @@ class ParserTest < ActiveSupport::TestCase
     assert_equal BigWorkspace.first.cohort, "Check Today!  "
   end
 
-  test "Clasroom A" do
-    parser = Parser.new("Classroom A", ClassroomA, "2015-11-10")
+  test "it finds the ochort and teacher for Clasroom A" do
+    parser  = Parser.new("Classroom A", ClassroomA, "2015-11-10")
+    parser2 = Parser.new("Classroom A", ClassroomA, "2015-11-09")
     parser.update_info
+    parser2.update_info
     assert_equal parser.modified_date, "2015-11-10"
+    assert_equal parser2.modified_date, "2015-11-09"
   end
 
-  test "Classroom C" do
+  test "it finds the ochort and teacher for Classroom C" do
     parser = Parser.new("Classroom C", ClassroomC, "2015-11-10")
+    parser2 = Parser.new("Classroom C", ClassroomC, "2015-11-09")
     parser.update_info
     assert_equal parser.modified_date, "2015-11-10"
+    assert_equal parser2.modified_date, "2015-11-09"
+  end
+
+  test "it finds the ochort and teacher for Classroom B" do
+    parser = Parser.new("Classroom B", ClassroomB, "2015-11-10")
+    parser2 = Parser.new("Classroom B", ClassroomB, "2015-11-09")
+    parser.update_info
+    assert_equal parser.modified_date, "2015-11-10"
+    assert_equal parser2.modified_date, "2015-11-09"
+  end
+
+  test "it finds the ochort and teacher for the Big Workspace" do
+    parser = Parser.new("Big Workspace", BigWorkspace, "2015-11-10")
+    parser2 = Parser.new("Big Workspace", BigWorkspace, "2015-11-09")
+    parser.update_info
+    assert_equal parser.modified_date, "2015-11-10"
+    assert_equal parser2.modified_date, "2015-11-09"
   end
 end

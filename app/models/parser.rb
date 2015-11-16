@@ -135,7 +135,7 @@ class Parser
     check_for_conflicts(conflicts)
   end
 
-  def find_b
+  def find_cohort
     link_the_cohort_data
     module_1; module_2; module_3; module_4
     if @mod1[0].include?(@location)
@@ -204,7 +204,7 @@ class Parser
     if conflict? == "Conflict!"
       conflicting_cohorts
     else
-      find_b
+      find_cohort
     end
   end
 
