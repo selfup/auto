@@ -7,14 +7,6 @@ class ParserTest < ActiveSupport::TestCase
     assert_equal parser.modified_date, "2015-11-10"
   end
 
-  test "it firgures out that it is the weekend" do
-    parser = Parser.new("Classroom B", ClassroomB, "2015-11-13")
-    parser.update_info
-    assert_equal parser.modified_date, "2015-11-13"
-    assert_equal ClassroomB.first.teacher, "Check Today :D"
-    assert_equal ClassroomB.first.cohort, "Weekend!!!    "
-  end
-
   test "it firgures out what day it is on its own" do
     parser = Parser.new("Big Workspace", BigWorkspace)
     parser.update_info

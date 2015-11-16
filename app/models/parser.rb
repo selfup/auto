@@ -80,35 +80,19 @@ class Parser
   end
 
   def module_1
-    @classroom_data[COHORTS[3]].map.with_index do |find, index|
-      if find.include?(@location)
-        @mod1.unshift(find)
-      end
-    end
+    @mod1.unshift(@classroom_data[COHORTS[3]][2])
   end
 
   def module_2
-    @classroom_data[COHORTS[2]].map.with_index do |find, index|
-      if find.include?(@location)
-        @mod2.unshift(find)
-      end
-    end
+    @mod2.unshift(@classroom_data[COHORTS[2]][2])
   end
 
   def module_3
-    @classroom_data[COHORTS[1]].map.with_index do |find, index|
-      if find.include?(@location)
-        @mod3.unshift(find)
-      end
-    end
+    @mod3.unshift(@classroom_data[COHORTS[1]][2])
   end
 
   def module_4
-    @classroom_data[COHORTS[0]].map.with_index do |find, index|
-      if find.include?(@location)
-        @mod4.unshift(find)
-      end
-    end
+    @mod4.unshift(@classroom_data[COHORTS[0]][2])
   end
 
   def check_for_conflicts(conflicts)
@@ -139,38 +123,33 @@ class Parser
     link_the_cohort_data
     module_1; module_2; module_3; module_4
     if @mod1[0].include?(@location)
-      cohort(COHORTS[3]); weekend?
+      find_teacher(@mod1[0]); cohort(COHORTS[3])
     elsif @mod2[0].include?(@location)
-      cohort(COHORTS[2]); weekend?
+      find_teacher(@mod2[0]); cohort(COHORTS[2])
     elsif @mod3[0].include?(@location)
-      cohort(COHORTS[1]); weekend?
+      find_teacher(@mod3[0]); cohort(COHORTS[1])
     elsif @mod4[0].include?(@location)
-      cohort(COHORTS[0]); weekend?
+      find_teacher(@mod4[0]); cohort(COHORTS[0])
     else
       tbd
     end
   end
 
-  def find_teacher
+  def find_teacher(mod_teacher)
     TEACHERS.map do |teacher|
-      if @mod1[0].include?(teacher)
-        @teacher.unshift(teacher)
-      elsif @mod2[0].include?(teacher)
-        @teacher.unshift(teacher)
-      elsif @mod3[0].include?(teacher)
-        @teacher.unshift(teacher)
-      elsif @mod4[0].include?(teacher)
+      if mod_teacher.include?(teacher)
         @teacher.unshift(teacher)
       end
     end
   end
 
   def cohort(cohort_num)
-    find_teacher
+    weekend?
     endpoint_model.first.update(
                                 cohort: cohort_num.ljust(14, " "),
                                 teacher: @teacher[0].ljust(14, " ")
-                              )
+                               )
+    @teacher = ["Unknown"]
   end
 
   def tbd
