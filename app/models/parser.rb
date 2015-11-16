@@ -2,15 +2,15 @@ class Parser
   attr_reader :location, :endpoint_model, :modified_date
 
   def initialize(location, endpoint_model, modified_date = "")
-    @location       = location
-    @endpoint_model = endpoint_model
-    @mod1           = ["N/A"]
-    @mod2           = ["N/A"]
-    @mod3           = ["N/A"]
-    @mod4           = ["N/A"]
-    @teacher        = ["Unknown"]
-    @classroom_data = {}
-    @modified_date  = modified_date
+    @location       ||= location
+    @endpoint_model ||= endpoint_model
+    @mod1           ||= ["N/A"]
+    @mod2           ||= ["N/A"]
+    @mod3           ||= ["N/A"]
+    @mod4           ||= ["N/A"]
+    @teacher        ||= ["Unknown"]
+    @classroom_data ||= {}
+    @modified_date  ||= modified_date
   end
 
   COHORTS  = %w(1505 1507 1508 1510)
@@ -81,33 +81,45 @@ class Parser
 
   def module_1
     @classroom_data[COHORTS[3]].map.with_index do |find, index|
-      if find.include?(@location)
-        @mod1.unshift(find)
-      end
+      next if find.include?("(9")
+        # binding.pry
+        if find.include?(@location)
+          @mod1.unshift(find)
+        end
+      # end
     end
   end
 
   def module_2
     @classroom_data[COHORTS[2]].map.with_index do |find, index|
-      if find.include?(@location)
-        @mod2.unshift(find)
-      end
+      next if find.include?("(9")
+        # binding.pry
+        if find.include?(@location)
+          @mod2.unshift(find)
+        end
+      # end
     end
   end
 
   def module_3
     @classroom_data[COHORTS[1]].map.with_index do |find, index|
-      if find.include?(@location)
-        @mod3.unshift(find)
-      end
+      next if find.include?("(9")
+        # binding.pry
+        if find.include?(@location)
+          @mod3.unshift(find)
+        end
+      # end
     end
   end
 
   def module_4
     @classroom_data[COHORTS[0]].map.with_index do |find, index|
-      if find.include?(@location)
-        @mod4.unshift(find)
-      end
+      next if find.include?("(9")
+        # binding.pry
+        if find.include?(@location)
+          @mod4.unshift(find)
+        end
+      # end
     end
   end
 
