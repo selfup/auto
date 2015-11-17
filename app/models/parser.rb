@@ -9,7 +9,7 @@ class Parser
     @mod3           = ["N/A"]
     @mod4           = ["N/A"]
     @teacher        = ["Unknown"]
-    @classroom_data = {}
+    @classroom_data ||= {}
     @modified_date  = modified_date
   end
 
@@ -17,16 +17,16 @@ class Parser
   TEACHERS = %w(Jeff Josh Rachel Jorge Steve Horace Andrew Mike Tess)
 
   def day_time
-    Time.now.asctime.split[0]
+    Time.now.asctime.split.first
   end
 
   def date
     if day_time == "Sat"
-      Time.at(Time.now.to_i - 86400).to_s.split[0]
+      Time.at(Time.now.to_i - 86400).to_s.split.first
     elsif day_time == "Sun"
-      Time.at(Time.now.to_i - 172800).to_s.split[0]
+      Time.at(Time.now.to_i - 172800).to_s.split.first
     else
-      Time.now.to_s.split(" ")[0]
+      Time.now.to_s.split(" ").first
     end
   end
 
@@ -46,13 +46,6 @@ class Parser
 
   def elements
     doc = content.text
-    if doc.include?("Generator Script")
-      until doc.include?("Generator Script") != true
-        sleep(5)
-        puts "**fetching again**"
-        content
-      end
-    end
     data = doc.gsub!("\n", "").split("  ")
     data.reject { |element| element == ''  }
   end
@@ -107,7 +100,7 @@ class Parser
   def conflict?
     link_the_cohort_data
     module_1; module_2; module_3; module_4
-    modules = [@mod1[0], @mod2[0], @mod3[0], @mod4[0]]
+    modules = [@mod1.first, @mod2.first, @mod3.first, @mod4.first]
     conflicts = []
     modules.map do |conflict|
       if conflict.include?(@location)
@@ -122,23 +115,23 @@ class Parser
   def find_cohort
     link_the_cohort_data
     module_1; module_2; module_3; module_4
-    if @mod1[0].include?(@location)
-      find_teacher(@mod1[0]); cohort(COHORTS[3])
-    elsif @mod2[0].include?(@location)
-      find_teacher(@mod2[0]); cohort(COHORTS[2])
-    elsif @mod3[0].include?(@location)
-      find_teacher(@mod3[0]); cohort(COHORTS[1])
-    elsif @mod4[0].include?(@location)
-      find_teacher(@mod4[0]); cohort(COHORTS[0])
+    if @mod1.first.include?(@location)
+      find_teacher(@mod1.first); cohort(COHORTS[3])
+    elsif @mod2.first.include?(@location)
+      find_teacher(@mod2.first); cohort(COHORTS[2])
+    elsif @mod3.first.include?(@location)
+      find_teacher(@mod3.first); cohort(COHORTS[1])
+    elsif @mod4.first.include?(@location)
+      find_teacher(@mod4.first); cohort(COHORTS.first)
     else
       tbd
     end
   end
 
   def find_teacher(mod_teacher)
-    TEACHERS.map do |teacher|
-      if mod_teacher.include?(teacher)
-        @teacher.unshift(teacher)
+    mod_teacher.split(" ").map do |find|
+      if TEACHERS.include?(find)
+        return @teacher.unshift(find)
       end
     end
   end
@@ -147,7 +140,7 @@ class Parser
     weekend?
     endpoint_model.first.update(
                                 cohort: cohort_num.ljust(14, " "),
-                                teacher: @teacher[0].ljust(14, " ")
+                                teacher: @teacher.first.ljust(14, " ")
                                )
     @teacher = ["Unknown"]
   end

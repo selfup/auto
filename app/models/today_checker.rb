@@ -15,17 +15,24 @@ class TodayChecker < ActiveRecord::Base
     JSON.parse(@connection.get("repos/#{@user}/#{@repo}/commits").body)[0]["commit"]["committer"]["date"]
   end
 
+  def self.update_all_tables
+    TodayChecker.first.update(repo_day: repo_call)
+    ClassroomA.update_info
+    ClassroomB.update_info
+    ClassroomC.update_info
+    BigWorkspace.update_info
+  end
+
   def self.check
     initialize_vars
     repo_call
-    if TodayChecker.first.repo_day != repo_call
-      @notifier.ping "Hey! today.turing.io just got updated! LCD screens will update in 90 seconds :)"
-      sleep(90)
-      TodayChecker.first.update(repo_day: repo_call)
-      ClassroomA.update_info
-      ClassroomB.update_info
-      ClassroomC.update_info
-      BigWorkspace.update_info
+    if Time.now.to_s.split(" ")[1].include?("05:04")
+      update_all_tables
+      @notifier.ping "Hey! I just updated the LCD screens because it is a new day :)"
+    elsif TodayChecker.first.repo_day != repo_call
+      @notifier.ping "Hey! today.turing.io just got updated! LCD screens will update in 2 minutes :)"
+      sleep(120)
+      update_all_tables
     end
   end
 

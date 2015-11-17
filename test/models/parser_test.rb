@@ -8,7 +8,7 @@ class ParserTest < ActiveSupport::TestCase
   end
 
   test "it firgures out what day it is on its own" do
-    parser = Parser.new("Big Workspace", BigWorkspace)
+    parser = Parser.new("Classroom C", ClassroomC)
     parser.update_info
     assert_equal parser.modified_date, ""
     assert_equal parser.day_time, Time.now.asctime.split[0]
