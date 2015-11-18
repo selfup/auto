@@ -14,7 +14,7 @@ class ParserTest < ActiveSupport::TestCase
     parser = Parser.new("Classroom C", ClassroomC)
     parser.update_info
 
-    assert_equal "", parser.modified_date
+    assert_equal "", parser.mod_date
     assert_equal Time.now.asctime.split[0], parser.day_time
   end
 
@@ -28,8 +28,8 @@ class ParserTest < ActiveSupport::TestCase
   test "it figures out how to link the data successfully" do
     parser = Parser.new("Classroom A", ClassroomA, "2015-11-18")
 
-    assert_equal ["1505", "1507", "1508", "1510"], parser.link_the_cohort_data
-    assert_equal class_room_data_stuff, parser.classroom_data
+    assert_equal ["1505", "1507", "1508", "1510"], parser.link_up
+    assert_equal class_room_data_stuff, parser.data
   end
 
   test "it outputs that it does not know when there is no teacher or cohort for a certain classroom" do
@@ -37,7 +37,7 @@ class ParserTest < ActiveSupport::TestCase
 
     parser.update_info
 
-    assert_equal "2015-11-10", parser.modified_date
+    assert_equal "2015-11-10", parser.mod_date
     assert_equal "I Dunno :P    ", BigWorkspace.first.teacher
     assert_equal "Check Today!  ", BigWorkspace.first.cohort
   end
@@ -48,16 +48,16 @@ class ParserTest < ActiveSupport::TestCase
 
     parser.update_info
 
-    assert_equal "2015-11-10", parser.modified_date
+    assert_equal "2015-11-10", parser.mod_date
     assert_equal "Steve         ", ClassroomA.first.teacher
     assert_equal "1505          ", ClassroomA.first.cohort
 
     parser2.update_info
 
-    assert_equal "2015-11-09", parser2.modified_date
+    assert_equal "2015-11-09", parser2.mod_date
     assert_equal "Jeff          ", ClassroomA.first.teacher
 
-    assert_equal "2015-11-09", parser2.modified_date
+    assert_equal "2015-11-09", parser2.mod_date
   end
 
   test "it says I Dunno :P when it doesn't find a teacher or classroom for Classroom C" do
@@ -65,7 +65,7 @@ class ParserTest < ActiveSupport::TestCase
 
     parser.update_info
 
-    assert_equal "2015-11-10", parser.modified_date
+    assert_equal "2015-11-10", parser.mod_date
     assert_equal "I Dunno :P    ", ClassroomC.first.teacher
   end
 
@@ -76,7 +76,7 @@ class ParserTest < ActiveSupport::TestCase
 
     assert_equal "Help          ", ClassroomB.first.teacher
     assert_equal "Conflict      ", ClassroomB.first.cohort
-    assert_equal "2015-11-10", parser.modified_date
+    assert_equal "2015-11-10", parser.mod_date
   end
 
   test "it says I Dunno :P when it doesn't find a teacher or classroom for the Big Workspace" do
@@ -85,7 +85,7 @@ class ParserTest < ActiveSupport::TestCase
     parser.update_info
 
     assert_equal "I Dunno :P    ", BigWorkspace.first.teacher
-    assert_equal "2015-11-10", parser.modified_date
+    assert_equal "2015-11-10", parser.mod_date
   end
 
   test "it figures out it is Sunday" do
