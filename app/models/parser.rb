@@ -22,9 +22,9 @@ class Parser
 
   def date
     if day_time == "Sat"
-      Time.at(Time.now.to_i - 86400).to_s.split.first
-    elsif day_time == "Sun"
       Time.at(Time.now.to_i - 172800).to_s.split.first
+    elsif day_time == "Sun"
+      Time.at(Time.now.to_i - 259200).to_s.split.first
     else
       Time.now.to_s.split(" ").first
     end
@@ -74,18 +74,22 @@ class Parser
 
   def module_1
     @mod1.unshift(@classroom_data[COHORTS[3]][2])
+    @mod1.first
   end
 
   def module_2
     @mod2.unshift(@classroom_data[COHORTS[2]][2])
+    @mod2.first
   end
 
   def module_3
     @mod3.unshift(@classroom_data[COHORTS[1]][2])
+    @mod3.first
   end
 
   def module_4
     @mod4.unshift(@classroom_data[COHORTS[0]][2])
+    @mod4.first
   end
 
   def check_for_conflicts(conflicts)
@@ -98,7 +102,7 @@ class Parser
   end
 
   def conflict?
-    modules = [module_1.first, module_2.first, module_3.first, module_4.first]
+    modules = [module_1, module_2, module_3, module_4]
     conflicts = []
     modules.map do |conflict|
       if conflict.include?(@location)
@@ -111,14 +115,14 @@ class Parser
   end
 
   def find_cohort
-    if module_1.first.include?(@location)
-      find_teacher(module_1.first); cohort(COHORTS[3])
-    elsif module_2.first.include?(@location)
-      find_teacher(module_2.first); cohort(COHORTS[2])
-    elsif module_3.first.include?(@location)
-      find_teacher(module_3.first); cohort(COHORTS[1])
-    elsif module_4.first.include?(@location)
-      find_teacher(module_4.first); cohort(COHORTS[0])
+    if module_1.include?(@location)
+      find_teacher(module_1); cohort(COHORTS[3])
+    elsif module_2.include?(@location)
+      find_teacher(module_2); cohort(COHORTS[2])
+    elsif module_3.include?(@location)
+      find_teacher(module_3); cohort(COHORTS[1])
+    elsif module_4.include?(@location)
+      find_teacher(module_4); cohort(COHORTS[0])
     else
       tbd
     end
@@ -170,7 +174,9 @@ class Parser
 
   def update_info
     link_the_cohort_data
-    if conflict? == "Conflict!"
+    if weekend?
+      weekend!
+    elsif conflict? == "Conflict!"
       conflicting_cohorts
     else
       find_cohort

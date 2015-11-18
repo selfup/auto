@@ -54,4 +54,52 @@ class ParserTest < ActiveSupport::TestCase
     assert_equal parser.modified_date, "2015-11-10"
     assert_equal parser2.modified_date, "2015-11-09"
   end
+
+  test "it figures out it is Sunday" do
+    new_time = Time.local(2015, 11, 15, 05, 0, 0)
+    Timecop.freeze(new_time)
+
+    parser = Parser.new("Big Workspace", BigWorkspace).update_info
+
+    friday_message = "Weekend!!!"
+    weekend_message = "Check Today :D"
+
+    assert_equal BigWorkspace.first.teacher, weekend_message.ljust(14, " ")
+    assert_equal BigWorkspace.first.cohort, friday_message.ljust(14, " ")
+
+    new_time == Time.now
+    Timecop.return
+  end
+
+  test "it figures out it is Saturday" do
+    new_time = Time.local(2015, 11, 14, 05, 0, 0)
+    Timecop.freeze(new_time)
+
+    parser = Parser.new("Big Workspace", BigWorkspace).update_info
+
+    friday_message = "Weekend!!!"
+    weekend_message = "Check Today :D"
+
+    assert_equal BigWorkspace.first.teacher, weekend_message.ljust(14, " ")
+    assert_equal BigWorkspace.first.cohort, friday_message.ljust(14, " ")
+
+    new_time == Time.now
+    Timecop.return
+  end
+
+  test "it figures out it is Friday" do
+    new_time = Time.local(2015, 11, 13, 05, 0, 0)
+    Timecop.freeze(new_time)
+
+    parser = Parser.new("Classroom A", ClassroomA).update_info
+
+    friday_message = "Weekend!!!"
+    weekend_message = "Check Today :D"
+
+    assert_equal ClassroomA.first.teacher, weekend_message.ljust(14, " ")
+    assert_equal ClassroomA.first.cohort, friday_message.ljust(14, " ")
+
+    new_time == Time.now
+    Timecop.return
+  end
 end

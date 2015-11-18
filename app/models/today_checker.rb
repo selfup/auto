@@ -26,7 +26,7 @@ class TodayChecker < ActiveRecord::Base
   def self.check
     initialize_vars
     repo_call
-    if Time.now.to_s.split(" ")[1].include?("05:04")
+    if Time.now.to_s.split(" ")[1].include?("05:00")
       update_all_tables
       # @notifier.ping "Hey! I just updated the LCD screens because it is a new day :)"
     elsif TodayChecker.first.repo_day != repo_call
