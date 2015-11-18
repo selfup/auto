@@ -5,10 +5,6 @@ class Parser
   def initialize(location, endpoint_model, modified_date = "")
     @location       = location
     @endpoint_model = endpoint_model
-    @mod1           = ["N/A"]
-    @mod2           = ["N/A"]
-    @mod3           = ["N/A"]
-    @mod4           = ["N/A"]
     @teacher        = ["Unknown"]
     @classroom_data ||= {}
     @modified_date  = modified_date
@@ -57,23 +53,19 @@ class Parser
   end
 
   def module_1
-    @mod1.unshift(classroom_data[COHORTS[3]][2])
-    @mod1.first
+    classroom_data[COHORTS[3]][2]
   end
 
   def module_2
-    @mod2.unshift(classroom_data[COHORTS[2]][2])
-    @mod2.first
+    classroom_data[COHORTS[2]][2]
   end
 
   def module_3
-    @mod3.unshift(classroom_data[COHORTS[1]][2])
-    @mod3.first
+    classroom_data[COHORTS[1]][2]
   end
 
   def module_4
-    @mod4.unshift(classroom_data[COHORTS[0]][2])
-    @mod4.first
+    classroom_data[COHORTS[0]][2]
   end
 
   def check_for_conflicts(conflicts)
@@ -108,7 +100,7 @@ class Parser
     elsif module_4.include?(@location)
       find_teacher(module_4); cohort(COHORTS[0])
     else
-      tbd
+      DbParseUpdater.new(endpoint_model).tbd
     end
   end
 
@@ -123,15 +115,6 @@ class Parser
   def cohort(cohort_num)
     weekend
     DbParseUpdater.new(endpoint_model).cohort(cohort_num, @teacher)
-    @teacher = ["Unknown"]
-  end
-
-  def tbd
-    DbParseUpdater.new(endpoint_model).tbd
-  end
-
-  def conflicting_cohorts
-    DbParseUpdater.new(endpoint_model).conflicting_cohorts
   end
 
   def weekend!
@@ -143,7 +126,7 @@ class Parser
     if weekend
       weekend!
     elsif conflict? == "Conflict!"
-      conflicting_cohorts
+      DbParseUpdater.new(endpoint_model).conflicting_cohorts
     else
       find_cohort
     end
