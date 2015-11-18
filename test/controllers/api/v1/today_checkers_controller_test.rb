@@ -1,7 +1,6 @@
 require 'test_helper'
 
 class Api::V1::TodayCheckersControllerTest < ActionController::TestCase
-  # include Capybara::DSL
 
   test "#index" do
     get :index, format: :json
