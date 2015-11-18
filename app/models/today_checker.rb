@@ -3,8 +3,6 @@ class TodayChecker < ActiveRecord::Base
   def self.initialize_vars
     @user = "turingschool"
     @repo = "today"
-    # @user = "selfup"
-    # @repo = "rails-engine"
     @connection = Hurley::Client.new("https://api.github.com")
     @connection.query[:access_token] = ENV["TOKEN"]
     @connection.header[:accept] = "application/vnd.github+json"
@@ -29,10 +27,10 @@ class TodayChecker < ActiveRecord::Base
     repo_call
     if Time.now.to_s.split(" ")[1].include?("05:00")
       update_all_tables
-      @notifier.ping "Hey! I just updated the LCD screens because it is a new day :)"
+      # @notifier.ping "Hey! I just updated the LCD screens because it is a new day :)"
     elsif TodayChecker.first.repo_day != repo_call
-      @notifier.ping "Hey! today.turing.io just got updated! LCD screens will update in 2 minutes :)"
-      sleep(120)
+      # @notifier.ping "Hey! today.turing.io just got updated! LCD screens will update in 2 minutes :)"
+      # sleep(120)
       update_all_tables
     end
   end

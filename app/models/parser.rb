@@ -1,5 +1,5 @@
 class Parser
-  attr_reader :location, :endpoint_model, :modified_date
+  attr_reader :location, :endpoint_model, :modified_date, :classroom_data, :date, :day_time
 
   def initialize(location, endpoint_model, modified_date = "")
     @location       = location
@@ -11,24 +11,12 @@ class Parser
     @teacher        = ["Unknown"]
     @classroom_data ||= {}
     @modified_date  = modified_date
+    @day_time       = DayTracker.new.day_time
+    @date           = DayTracker.new.date
   end
 
   COHORTS  = %w(1505 1507 1508 1510)
   TEACHERS = %w(Jeff Josh Rachel Jorge Steve Horace Andrew Mike Tess)
-
-  def day_time
-    Time.now.asctime.split.first
-  end
-
-  def date
-    if day_time == "Sat"
-      Time.at(Time.now.to_i - 172800).to_s.split.first
-    elsif day_time == "Sun"
-      Time.at(Time.now.to_i - 259200).to_s.split.first
-    else
-      Time.now.to_s.split(" ").first
-    end
-  end
 
   def weekend?
     if day_time == "Fri" || day_time == "Sat" || day_time == "Sun"
@@ -37,10 +25,10 @@ class Parser
   end
 
   def content
-    if @modified_date == ""
+    if modified_date == ""
       @content ||= Nokogiri::HTML(open("http://today.turing.io/outlines/#{date}"))
-    elsif @modified_date != ""
-      @content ||= Nokogiri::HTML(open("http://today.turing.io/outlines/#{@modified_date}"))
+    elsif modified_date != ""
+      @content ||= Nokogiri::HTML(open("http://today.turing.io/outlines/#{modified_date}"))
     end
   end
 
@@ -53,7 +41,7 @@ class Parser
   def classrooms
     elements
     COHORTS.each do |cohort|
-      @classroom_data[cohort] = []
+      classroom_data[cohort] = []
     end
   end
 
@@ -66,29 +54,29 @@ class Parser
 
       until element.include?(next_cohort)
         element = elements[element_index]
-        @classroom_data[cohort] << element
+        classroom_data[cohort] << element
         element_index += 1
       end
     end
   end
 
   def module_1
-    @mod1.unshift(@classroom_data[COHORTS[3]][2])
+    @mod1.unshift(classroom_data[COHORTS[3]][2])
     @mod1.first
   end
 
   def module_2
-    @mod2.unshift(@classroom_data[COHORTS[2]][2])
+    @mod2.unshift(classroom_data[COHORTS[2]][2])
     @mod2.first
   end
 
   def module_3
-    @mod3.unshift(@classroom_data[COHORTS[1]][2])
+    @mod3.unshift(classroom_data[COHORTS[1]][2])
     @mod3.first
   end
 
   def module_4
-    @mod4.unshift(@classroom_data[COHORTS[0]][2])
+    @mod4.unshift(classroom_data[COHORTS[0]][2])
     @mod4.first
   end
 
@@ -138,38 +126,20 @@ class Parser
 
   def cohort(cohort_num)
     weekend?
-    endpoint_model.first.update(
-                                cohort: cohort_num.ljust(14, " "),
-                                teacher: @teacher.first.ljust(14, " ")
-                               )
+    DbParseUpdater.new(endpoint_model).cohort(cohort_num, @teacher)
     @teacher = ["Unknown"]
   end
 
   def tbd
-    check_today = "Check Today!"
-    i_dunno     = "I Dunno :P"
-    endpoint_model.first.update(
-                                cohort: check_today.ljust(14, " "),
-                                teacher: i_dunno.ljust(14, " ")
-                              )
+    DbParseUpdater.new(endpoint_model).tbd
   end
 
   def conflicting_cohorts
-    conflict_message = "Conflict"
-    help_message = "Help"
-    endpoint_model.first.update(
-                                cohort: conflict_message.ljust(14, " "),
-                                teacher: help_message.ljust(14, " ")
-                              )
+    DbParseUpdater.new(endpoint_model).conflicting_cohorts
   end
 
   def weekend!
-    friday_message = "Weekend!!!"
-    weekend_message = "Check Today :D"
-    endpoint_model.first.update(
-                                cohort: friday_message.ljust(14, " "),
-                                teacher: weekend_message.ljust(14, " ")
-                              )
+    DbParseUpdater.new(endpoint_model).weekend!
   end
 
   def update_info
@@ -182,5 +152,4 @@ class Parser
       find_cohort
     end
   end
-
 end
