@@ -98,9 +98,7 @@ class Parser
   end
 
   def conflict?
-    link_the_cohort_data
-    module_1; module_2; module_3; module_4
-    modules = [@mod1.first, @mod2.first, @mod3.first, @mod4.first]
+    modules = [module_1.first, module_2.first, module_3.first, module_4.first]
     conflicts = []
     modules.map do |conflict|
       if conflict.include?(@location)
@@ -113,16 +111,14 @@ class Parser
   end
 
   def find_cohort
-    link_the_cohort_data
-    module_1; module_2; module_3; module_4
-    if @mod1.first.include?(@location)
-      find_teacher(@mod1.first); cohort(COHORTS[3])
-    elsif @mod2.first.include?(@location)
-      find_teacher(@mod2.first); cohort(COHORTS[2])
-    elsif @mod3.first.include?(@location)
-      find_teacher(@mod3.first); cohort(COHORTS[1])
-    elsif @mod4.first.include?(@location)
-      find_teacher(@mod4.first); cohort(COHORTS.first)
+    if module_1.first.include?(@location)
+      find_teacher(module_1.first); cohort(COHORTS[3])
+    elsif module_2.first.include?(@location)
+      find_teacher(module_2.first); cohort(COHORTS[2])
+    elsif module_3.first.include?(@location)
+      find_teacher(module_3.first); cohort(COHORTS[1])
+    elsif module_4.first.include?(@location)
+      find_teacher(module_4.first); cohort(COHORTS[0])
     else
       tbd
     end
@@ -173,6 +169,7 @@ class Parser
   end
 
   def update_info
+    link_the_cohort_data
     if conflict? == "Conflict!"
       conflicting_cohorts
     else
