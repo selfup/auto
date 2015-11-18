@@ -28,32 +28,37 @@ class ParserTest < ActiveSupport::TestCase
   test "it finds the ochort and teacher for Clasroom A" do
     parser  = Parser.new("Classroom A", ClassroomA, "2015-11-10")
     parser2 = Parser.new("Classroom A", ClassroomA, "2015-11-09")
+
     parser.update_info
+
+    assert_equal parser.modified_date, "2015-11-10"
+    assert_equal ClassroomA.first.teacher, "Steve         "
+    assert_equal ClassroomA.first.cohort, "1505          "
 
     parser2.update_info
 
-    assert_equal parser.modified_date, "2015-11-10"
+    assert_equal parser2.modified_date, "2015-11-09"
+    assert_equal ClassroomA.first.teacher, "Jeff          "
+
     assert_equal parser2.modified_date, "2015-11-09"
   end
 
   test "it finds the cohort and teacher for Classroom C" do
     parser = Parser.new("Classroom C", ClassroomC, "2015-11-10")
-    parser2 = Parser.new("Classroom C", ClassroomC, "2015-11-09")
 
     parser.update_info
 
     assert_equal parser.modified_date, "2015-11-10"
-    assert_equal parser2.modified_date, "2015-11-09"
+    assert_equal ClassroomC.first.teacher, "Jorge         "
   end
 
   test "it finds the cohort and teacher for Classroom B" do
     parser = Parser.new("Classroom B", ClassroomB, "2015-11-10")
-    parser2 = Parser.new("Classroom B", ClassroomB, "2015-11-09")
 
     parser.update_info
 
     assert_equal parser.modified_date, "2015-11-10"
-    assert_equal parser2.modified_date, "2015-11-09"
+    assert_equal ClassroomB.first.teacher, "Josh          "
   end
 
   test "it finds the cohort and teacher for the Big Workspace" do
