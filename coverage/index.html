@@ -14,7 +14,7 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2015-11-18T11:40:42-07:00">2015-11-18T11:40:42-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2015-11-18T15:25:56-07:00">2015-11-18T15:25:56-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,7 +25,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         10847.95
+         10979.43
        </span>
     </span> hits/line)
   </h2>
@@ -167,7 +167,7 @@
         <td>28</td>
         <td>28</td>
         <td>0</td>
-        <td>73936.9</td>
+        <td>74833.8</td>
       </tr>
       
       <tr>
@@ -360,7 +360,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         13030.92
+         13188.87
        </span>
     </span> hits/line)
   </h2>
@@ -432,7 +432,7 @@
         <td>28</td>
         <td>28</td>
         <td>0</td>
-        <td>73936.9</td>
+        <td>74833.8</td>
       </tr>
       
       <tr>
@@ -1368,26 +1368,26 @@
           <code class="ruby">  def content</code>
         </li>
       
-        <li class="covered" data-hits="1880" data-linenumber="16">
-          <span class="hits">1880</span>
+        <li class="covered" data-hits="1910" data-linenumber="16">
+          <span class="hits">1910</span>
           
           <code class="ruby">    if mod_date == &quot;&quot;</code>
         </li>
       
-        <li class="covered" data-hits="1153" data-linenumber="17">
-          <span class="hits">1153</span>
+        <li class="covered" data-hits="1180" data-linenumber="17">
+          <span class="hits">1180</span>
           
           <code class="ruby">      @content ||= Nokogiri::HTML(open(&quot;#{url}#{date}&quot;))</code>
         </li>
       
-        <li class="covered" data-hits="727" data-linenumber="18">
-          <span class="hits">727</span>
+        <li class="covered" data-hits="730" data-linenumber="18">
+          <span class="hits">730</span>
           
           <code class="ruby">    elsif mod_date != &quot;&quot;</code>
         </li>
       
-        <li class="covered" data-hits="727" data-linenumber="19">
-          <span class="hits">727</span>
+        <li class="covered" data-hits="730" data-linenumber="19">
+          <span class="hits">730</span>
           
           <code class="ruby">      @content ||= Nokogiri::HTML(open(&quot;#{url}#{mod_date}&quot;))</code>
         </li>
@@ -1416,8 +1416,8 @@
           <code class="ruby">  def elements</code>
         </li>
       
-        <li class="covered" data-hits="2059545" data-linenumber="24">
-          <span class="hits">2059545</span>
+        <li class="covered" data-hits="2084505" data-linenumber="24">
+          <span class="hits">2084505</span>
           
           <code class="ruby">    content.text.gsub!(&quot;\n&quot;, &quot;&quot;).split(&quot;  &quot;).reject { |element| element == &#39;&#39;  }</code>
         </li>
@@ -1512,20 +1512,20 @@
           <code class="ruby">      until element.include?(next_cohort)</code>
         </li>
       
-        <li class="covered" data-hits="1736" data-linenumber="40">
-          <span class="hits">1736</span>
+        <li class="covered" data-hits="1766" data-linenumber="40">
+          <span class="hits">1766</span>
           
           <code class="ruby">        element = elements[element_index]</code>
         </li>
       
-        <li class="covered" data-hits="1736" data-linenumber="41">
-          <span class="hits">1736</span>
+        <li class="covered" data-hits="1766" data-linenumber="41">
+          <span class="hits">1766</span>
           
           <code class="ruby">        data[cohort] &lt;&lt; element</code>
         </li>
       
-        <li class="covered" data-hits="1736" data-linenumber="42">
-          <span class="hits">1736</span>
+        <li class="covered" data-hits="1766" data-linenumber="42">
+          <span class="hits">1766</span>
           
           <code class="ruby">        element_index += 1</code>
         </li>
