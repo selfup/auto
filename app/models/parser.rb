@@ -1,5 +1,6 @@
 class Parser
-  attr_reader :location, :endpoint_model, :modified_date, :classroom_data, :date, :day_time
+  attr_reader :location, :endpoint_model, :modified_date,
+              :classroom_data, :date, :day_time, :weekend
 
   def initialize(location, endpoint_model, modified_date = "")
     @location       = location
@@ -13,16 +14,11 @@ class Parser
     @modified_date  = modified_date
     @day_time       = DayTracker.new.day_time
     @date           = DayTracker.new.date
+    @weekend        = DayTracker.new(weekend!).weekend
   end
 
   COHORTS  = %w(1505 1507 1508 1510)
   TEACHERS = %w(Jeff Josh Rachel Jorge Steve Horace Andrew Mike Tess)
-
-  def weekend?
-    if day_time == "Fri" || day_time == "Sat" || day_time == "Sun"
-      weekend!
-    end
-  end
 
   def content
     if modified_date == ""
@@ -125,7 +121,7 @@ class Parser
   end
 
   def cohort(cohort_num)
-    weekend?
+    weekend
     DbParseUpdater.new(endpoint_model).cohort(cohort_num, @teacher)
     @teacher = ["Unknown"]
   end
@@ -144,7 +140,7 @@ class Parser
 
   def update_info
     link_the_cohort_data
-    if weekend?
+    if weekend
       weekend!
     elsif conflict? == "Conflict!"
       conflicting_cohorts
