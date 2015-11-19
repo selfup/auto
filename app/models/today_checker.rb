@@ -30,7 +30,7 @@ class TodayChecker < ActiveRecord::Base
       @notifier.ping "Hey! I just updated the LCD screens because it is a new day :)"
     elsif TodayChecker.first.repo_day != repo_call
       @notifier.ping "Hey! today.turing.io just got updated! LCD screens will update in 2 minutes :)"
-      # sleep(120)
+      sleep(120)
       update_all_tables
     end
   end
