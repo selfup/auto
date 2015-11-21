@@ -17,3 +17,6 @@
 
 # Ignore cassettes
 /test/cassettes
+
+# Ignore coverage
+/coverage
