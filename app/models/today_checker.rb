@@ -9,6 +9,10 @@ class TodayChecker < ActiveRecord::Base
     @notifier = Slack::Notifier.new ENV["WEB_HOOK_URL"]
   end
 
+  def self.data_base_tables
+    [ClassroomA, ClassroomB, ClassroomC, BigWorkspace]
+  end
+
   def self.repo_call
     JSON.parse(@connection.get("repos/#{@user}/#{@repo}/commits").
     body)[0]["commit"]["committer"]["date"]
@@ -16,10 +20,7 @@ class TodayChecker < ActiveRecord::Base
 
   def self.update_all_tables
     TodayChecker.first.update(repo_day: repo_call)
-    ClassroomA.update_info
-    ClassroomB.update_info
-    ClassroomC.update_info
-    BigWorkspace.update_info
+    data_base_tables.map { |table| table.update_info }
   end
 
   def self.check
@@ -30,7 +31,7 @@ class TodayChecker < ActiveRecord::Base
       @notifier.ping "Hey! I just updated the LCD screens because it is a new day :)"
     elsif TodayChecker.first.repo_day != repo_call
       @notifier.ping "Hey! today.turing.io just got updated! LCD screens will update in 2 minutes :)"
-      sleep(120)
+      # sleep(120)
       update_all_tables
     end
   end
