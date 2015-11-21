@@ -83,7 +83,6 @@ class ParserTest < ActiveSupport::TestCase
     parser = Parser.new("Big Workspace", BigWorkspace, "2015-11-10")
 
     parser.update_info
-
     assert_equal "I Dunno :P    ", BigWorkspace.first.teacher
     assert_equal "2015-11-10", parser.mod_date
   end

@@ -17,6 +17,7 @@ class Parser
     @elements       = ContentFetcher.new(mod_date, date).elements
     @rooms          = ContentFetcher.new(mod_date, date, cohorts, data).rooms
     @link_up        = ContentFetcher.new(mod_date, date, cohorts, data).link_up
+    @modules        = [module_1, module_2, module_3, module_4].reverse
   end
 
   def module_1
@@ -45,9 +46,8 @@ class Parser
   end
 
   def conflict?
-    modules = [module_1, module_2, module_3, module_4]
     conflicts = []
-    modules.map do |conflict|
+    @modules.map do |conflict|
       if conflict.include?(@location)
         conflicts << "Yes"
       else
@@ -58,16 +58,12 @@ class Parser
   end
 
   def find_cohort
-    if module_1.include?(@location)
-      find_teacher(module_1); cohort(cohorts[3])
-    elsif module_2.include?(@location)
-      find_teacher(module_2); cohort(cohorts[2])
-    elsif module_3.include?(@location)
-      find_teacher(module_3); cohort(cohorts[1])
-    elsif module_4.include?(@location)
-      find_teacher(module_4); cohort(cohorts[0])
-    else
-      DbParseUpdater.new(endpoint_model).tbd
+    @modules.map.with_index do |module_number, cohort_index|
+      if module_number.include?(@location)
+        find_teacher(module_number); cohort(cohorts[cohort_index])
+      else
+        DbParseUpdater.new(endpoint_model).tbd
+      end
     end
   end
 
