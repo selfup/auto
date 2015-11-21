@@ -11,6 +11,8 @@ class ParserTest < ActiveSupport::TestCase
   end
 
   test "it firgures out what day it is on its own" do
+    new_time = Time.local(2015, 11, 12, 05, 0, 0)
+    Timecop.freeze(new_time)
     parser = Parser.new("Classroom C", ClassroomC)
     parser.update_info
 
@@ -19,20 +21,30 @@ class ParserTest < ActiveSupport::TestCase
   end
 
   test "it fetches the data and cleans it up" do
+    new_time = Time.local(2015, 11, 12, 05, 0, 0)
+    Timecop.freeze(new_time)
     parser = Parser.new("Classroom C", ClassroomC, "2015-11-12")
 
     assert_equal Nokogiri::HTML::Document, parser.content.class
     assert_equal clean_up_data, parser.elements
+    new_time == Time.now
+    Timecop.return
   end
 
   test "it figures out how to link the data successfully" do
+    new_time = Time.local(2015, 11, 12, 05, 0, 0)
+    Timecop.freeze(new_time)
     parser = Parser.new("Classroom A", ClassroomA, "2015-11-18")
 
     assert_equal ["1505", "1507", "1508", "1510"], parser.link_up
     assert_equal class_room_data_stuff, parser.data
+    new_time == Time.now
+    Timecop.return
   end
 
   test "it outputs that it does not know when there is no teacher or cohort for a certain classroom" do
+    new_time = Time.local(2015, 11, 12, 05, 0, 0)
+    Timecop.freeze(new_time)
     parser = Parser.new("Big Workspace", BigWorkspace, "2015-11-10")
 
     parser.update_info
@@ -40,17 +52,15 @@ class ParserTest < ActiveSupport::TestCase
     assert_equal "2015-11-10", parser.mod_date
     assert_equal "I Dunno :P    ", BigWorkspace.first.teacher
     assert_equal "Check Today!  ", BigWorkspace.first.cohort
+    new_time == Time.now
+    Timecop.return
   end
 
   test "it finds the cohort and teacher for Clasroom A" do
-    parser  = Parser.new("Classroom A", ClassroomA, "2015-11-10")
+    new_time = Time.local(2015, 11, 12, 05, 0, 0)
+    Timecop.freeze(new_time)
+
     parser2 = Parser.new("Classroom A", ClassroomA, "2015-11-09")
-
-    parser.update_info
-
-    assert_equal "2015-11-10", parser.mod_date
-    assert_equal "Steve         ", ClassroomA.first.teacher
-    assert_equal "1505          ", ClassroomA.first.cohort
 
     parser2.update_info
 
@@ -58,18 +68,26 @@ class ParserTest < ActiveSupport::TestCase
     assert_equal "Jeff          ", ClassroomA.first.teacher
 
     assert_equal "2015-11-09", parser2.mod_date
+    new_time == Time.now
+    Timecop.return
   end
 
   test "it says I Dunno :P when it doesn't find a teacher or classroom for Classroom C" do
+    new_time = Time.local(2015, 11, 12, 05, 0, 0)
+    Timecop.freeze(new_time)
     parser = Parser.new("Classroom C", ClassroomC, "2015-11-10")
 
     parser.update_info
 
     assert_equal "2015-11-10", parser.mod_date
     assert_equal "I Dunno :P    ", ClassroomC.first.teacher
+    new_time == Time.now
+    Timecop.return
   end
 
   test "it finds a conflict for Classroom B" do
+    new_time = Time.local(2015, 11, 12, 05, 0, 0)
+    Timecop.freeze(new_time)
     parser = Parser.new("Classroom B", ClassroomB, "2015-11-10")
 
     parser.update_info
@@ -77,14 +95,20 @@ class ParserTest < ActiveSupport::TestCase
     assert_equal "Help          ", ClassroomB.first.teacher
     assert_equal "Conflict      ", ClassroomB.first.cohort
     assert_equal "2015-11-10", parser.mod_date
+    new_time == Time.now
+    Timecop.return
   end
 
   test "it says I Dunno :P when it doesn't find a teacher or classroom for the Big Workspace" do
+    new_time = Time.local(2015, 11, 12, 05, 0, 0)
+    Timecop.freeze(new_time)
     parser = Parser.new("Big Workspace", BigWorkspace, "2015-11-10")
 
     parser.update_info
     assert_equal "I Dunno :P    ", BigWorkspace.first.teacher
     assert_equal "2015-11-10", parser.mod_date
+    new_time == Time.now
+    Timecop.return
   end
 
   test "it figures out it is Sunday" do
