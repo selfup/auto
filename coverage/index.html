@@ -14,7 +14,7 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2015-11-20T17:26:14-07:00">2015-11-20T17:26:14-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2015-11-21T19:47:09-07:00">2015-11-21T19:47:09-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -25,7 +25,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         14704.51
+         16574.28
        </span>
     </span> hits/line)
   </h2>
@@ -167,7 +167,7 @@
         <td>28</td>
         <td>28</td>
         <td>0</td>
-        <td>98148.3</td>
+        <td>110636.0</td>
       </tr>
       
       <tr>
@@ -177,7 +177,7 @@
         <td>15</td>
         <td>15</td>
         <td>0</td>
-        <td>19.7</td>
+        <td>19.1</td>
       </tr>
       
       <tr>
@@ -360,7 +360,7 @@
      covered at
      <span class="covered_strength">
        <span class="green">
-         17740.01
+         19995.8
        </span>
     </span> hits/line)
   </h2>
@@ -432,7 +432,7 @@
         <td>28</td>
         <td>28</td>
         <td>0</td>
-        <td>98148.3</td>
+        <td>110636.0</td>
       </tr>
       
       <tr>
@@ -442,7 +442,7 @@
         <td>15</td>
         <td>15</td>
         <td>0</td>
-        <td>19.7</td>
+        <td>19.1</td>
       </tr>
       
       <tr>
@@ -1368,14 +1368,14 @@
           <code class="ruby">  def content</code>
         </li>
       
-        <li class="covered" data-hits="2450" data-linenumber="16">
-          <span class="hits">2450</span>
+        <li class="covered" data-hits="2594" data-linenumber="16">
+          <span class="hits">2594</span>
           
           <code class="ruby">    if mod_date == &quot;&quot;</code>
         </li>
       
-        <li class="covered" data-hits="1808" data-linenumber="17">
-          <span class="hits">1808</span>
+        <li class="covered" data-hits="1952" data-linenumber="17">
+          <span class="hits">1952</span>
           
           <code class="ruby">      @content ||= Nokogiri::HTML(open(&quot;#{url}#{date}&quot;))</code>
         </li>
@@ -1416,8 +1416,8 @@
           <code class="ruby">  def elements</code>
         </li>
       
-        <li class="covered" data-hits="2734722" data-linenumber="24">
-          <span class="hits">2734722</span>
+        <li class="covered" data-hits="3083658" data-linenumber="24">
+          <span class="hits">3083658</span>
           
           <code class="ruby">    content.text.gsub!(&quot;\n&quot;, &quot;&quot;).split(&quot;  &quot;).reject { |element| element == &#39;&#39;  }</code>
         </li>
@@ -1512,20 +1512,20 @@
           <code class="ruby">      until element.include?(next_cohort)</code>
         </li>
       
-        <li class="covered" data-hits="2312" data-linenumber="40">
-          <span class="hits">2312</span>
+        <li class="covered" data-hits="2456" data-linenumber="40">
+          <span class="hits">2456</span>
           
           <code class="ruby">        element = elements[element_index]</code>
         </li>
       
-        <li class="covered" data-hits="2312" data-linenumber="41">
-          <span class="hits">2312</span>
+        <li class="covered" data-hits="2456" data-linenumber="41">
+          <span class="hits">2456</span>
           
           <code class="ruby">        data[cohort] &lt;&lt; element</code>
         </li>
       
-        <li class="covered" data-hits="2312" data-linenumber="42">
-          <span class="hits">2312</span>
+        <li class="covered" data-hits="2456" data-linenumber="42">
+          <span class="hits">2456</span>
           
           <code class="ruby">        element_index += 1</code>
         </li>
@@ -1650,14 +1650,14 @@
           <code class="ruby">    if day_time == &quot;Sat&quot;</code>
         </li>
       
-        <li class="covered" data-hits="1" data-linenumber="14">
-          <span class="hits">1</span>
+        <li class="covered" data-hits="9" data-linenumber="14">
+          <span class="hits">9</span>
           
           <code class="ruby">      Time.at(Time.now.to_i - 172800).to_s.split.first</code>
         </li>
       
-        <li class="covered" data-hits="22" data-linenumber="15">
-          <span class="hits">22</span>
+        <li class="covered" data-hits="14" data-linenumber="15">
+          <span class="hits">14</span>
           
           <code class="ruby">    elsif day_time == &quot;Sun&quot;</code>
         </li>
@@ -1674,8 +1674,8 @@
           <code class="ruby">    else</code>
         </li>
       
-        <li class="covered" data-hits="21" data-linenumber="18">
-          <span class="hits">21</span>
+        <li class="covered" data-hits="13" data-linenumber="18">
+          <span class="hits">13</span>
           
           <code class="ruby">      Time.now.to_s.split(&quot; &quot;).first</code>
         </li>
@@ -2097,43 +2097,43 @@
         <li class="covered" data-hits="23" data-linenumber="13">
           <span class="hits">23</span>
           
-          <code class="ruby">    @day_time       = DayTracker.new.day_time</code>
+          <code class="ruby">    @day_time       ||= DayTracker.new.day_time</code>
         </li>
       
         <li class="covered" data-hits="23" data-linenumber="14">
           <span class="hits">23</span>
           
-          <code class="ruby">    @date           = DayTracker.new.date</code>
+          <code class="ruby">    @date           ||= DayTracker.new.date</code>
         </li>
       
         <li class="covered" data-hits="23" data-linenumber="15">
           <span class="hits">23</span>
           
-          <code class="ruby">    @weekend        = DayTracker.new(weekend!).weekend</code>
+          <code class="ruby">    @weekend        ||= DayTracker.new(weekend!).weekend</code>
         </li>
       
         <li class="covered" data-hits="23" data-linenumber="16">
           <span class="hits">23</span>
           
-          <code class="ruby">    @content        = ContentFetcher.new(mod_date, date).content</code>
+          <code class="ruby">    @content        ||= ContentFetcher.new(mod_date, date).content</code>
         </li>
       
         <li class="covered" data-hits="23" data-linenumber="17">
           <span class="hits">23</span>
           
-          <code class="ruby">    @elements       = ContentFetcher.new(mod_date, date).elements</code>
+          <code class="ruby">    @elements       ||= ContentFetcher.new(mod_date, date).elements</code>
         </li>
       
         <li class="covered" data-hits="23" data-linenumber="18">
           <span class="hits">23</span>
           
-          <code class="ruby">    @rooms          = ContentFetcher.new(mod_date, date, cohorts, data).rooms</code>
+          <code class="ruby">    @rooms          ||= ContentFetcher.new(mod_date, date, cohorts, data).rooms</code>
         </li>
       
         <li class="covered" data-hits="23" data-linenumber="19">
           <span class="hits">23</span>
           
-          <code class="ruby">    @link_up        = ContentFetcher.new(mod_date, date, cohorts, data).link_up</code>
+          <code class="ruby">    @link_up        ||= ContentFetcher.new(mod_date, date, cohorts, data).link_up</code>
         </li>
       
         <li class="covered" data-hits="23" data-linenumber="20">

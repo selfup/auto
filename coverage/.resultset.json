@@ -70,12 +70,13 @@
         null,
         null
       ],
-      "/Users/RJPB/Personal-Project/auto/app/controllers/api/v1/classroom_bs_controller.rb": [
+      "/Users/RJPB/Personal-Project/auto/app/controllers/api/v1/today_checkers_controller.rb": [
         1,
         1,
         null,
         1,
-        2,
+        3,
+        3,
         null,
         null
       ],
@@ -87,39 +88,6 @@
         null
       ],
       "/Users/RJPB/Personal-Project/auto/app/helpers/application_helper.rb": [
-        1,
-        null
-      ],
-      "/Users/RJPB/Personal-Project/auto/app/serializers/classroom_b_serializer.rb": [
-        1,
-        1,
-        null
-      ],
-      "/Users/RJPB/Personal-Project/auto/app/controllers/api/v1/classroom_cs_controller.rb": [
-        1,
-        1,
-        null,
-        1,
-        2,
-        null,
-        null
-      ],
-      "/Users/RJPB/Personal-Project/auto/app/serializers/classroom_c_serializer.rb": [
-        1,
-        1,
-        null
-      ],
-      "/Users/RJPB/Personal-Project/auto/app/controllers/api/v1/big_workspaces_controller.rb": [
-        1,
-        1,
-        null,
-        1,
-        2,
-        null,
-        null
-      ],
-      "/Users/RJPB/Personal-Project/auto/app/serializers/big_workspace_serializer.rb": [
-        1,
         1,
         null
       ],
@@ -235,11 +203,11 @@
         null,
         1,
         23,
-        1,
-        22,
+        9,
+        14,
         1,
         null,
-        21,
+        13,
         null,
         null,
         null,
@@ -310,15 +278,15 @@
         null,
         null,
         1,
-        2450,
-        1808,
+        2594,
+        1952,
         642,
         642,
         null,
         null,
         null,
         1,
-        2734722,
+        3083658,
         null,
         null,
         1,
@@ -334,12 +302,31 @@
         92,
         null,
         92,
-        2312,
-        2312,
-        2312,
+        2456,
+        2456,
+        2456,
         null,
         null,
         null,
+        null
+      ],
+      "/Users/RJPB/Personal-Project/auto/app/serializers/classroom_a_serializer.rb": [
+        1,
+        1,
+        null
+      ],
+      "/Users/RJPB/Personal-Project/auto/app/controllers/api/v1/classroom_cs_controller.rb": [
+        1,
+        1,
+        null,
+        1,
+        2,
+        null,
+        null
+      ],
+      "/Users/RJPB/Personal-Project/auto/app/serializers/classroom_c_serializer.rb": [
+        1,
+        1,
         null
       ],
       "/Users/RJPB/Personal-Project/auto/app/controllers/api/v1/classroom_as_controller.rb": [
@@ -351,22 +338,35 @@
         null,
         null
       ],
-      "/Users/RJPB/Personal-Project/auto/app/serializers/classroom_a_serializer.rb": [
+      "/Users/RJPB/Personal-Project/auto/app/controllers/api/v1/big_workspaces_controller.rb": [
+        1,
+        1,
+        null,
+        1,
+        2,
+        null,
+        null
+      ],
+      "/Users/RJPB/Personal-Project/auto/app/serializers/big_workspace_serializer.rb": [
         1,
         1,
         null
       ],
-      "/Users/RJPB/Personal-Project/auto/app/controllers/api/v1/today_checkers_controller.rb": [
+      "/Users/RJPB/Personal-Project/auto/app/controllers/api/v1/classroom_bs_controller.rb": [
         1,
         1,
         null,
         1,
-        3,
-        3,
+        2,
         null,
+        null
+      ],
+      "/Users/RJPB/Personal-Project/auto/app/serializers/classroom_b_serializer.rb": [
+        1,
+        1,
         null
       ]
     },
-    "timestamp": 1448065574
+    "timestamp": 1448160429
   }
 }

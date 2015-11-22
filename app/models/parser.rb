@@ -10,13 +10,13 @@ class Parser
     @teacher        = ["Unknown"]
     @cohorts        = %w(1505 1507 1508 1510)
     @teachers       = %w(Jeff Josh Rachel Jorge Steve Horace Andrew Mike Tess)
-    @day_time       = DayTracker.new.day_time
-    @date           = DayTracker.new.date
-    @weekend        = DayTracker.new(weekend!).weekend
-    @content        = ContentFetcher.new(mod_date, date).content
-    @elements       = ContentFetcher.new(mod_date, date).elements
-    @rooms          = ContentFetcher.new(mod_date, date, cohorts, data).rooms
-    @link_up        = ContentFetcher.new(mod_date, date, cohorts, data).link_up
+    @day_time       ||= DayTracker.new.day_time
+    @date           ||= DayTracker.new.date
+    @weekend        ||= DayTracker.new(weekend!).weekend
+    @content        ||= ContentFetcher.new(mod_date, date).content
+    @elements       ||= ContentFetcher.new(mod_date, date).elements
+    @rooms          ||= ContentFetcher.new(mod_date, date, cohorts, data).rooms
+    @link_up        ||= ContentFetcher.new(mod_date, date, cohorts, data).link_up
     @modules        = [module_1, module_2, module_3, module_4].reverse
   end
 
