@@ -1,12 +1,12 @@
 class TodayChecker < ActiveRecord::Base
 
   def self.initialize_vars
-    @user = "turingschool"
-    @repo = "today"
-    @connection = Hurley::Client.new("https://api.github.com")
-    @connection.query[:access_token] = ENV["TOKEN"]
-    @connection.header[:accept] = "application/vnd.github+json"
-    @notifier = Slack::Notifier.new ENV["WEB_HOOK_URL"]
+    @user                      = "turingschool"
+    @repo                      = "today"
+    @pong                      ||= Hurley::Client.new("https://api.github.com")
+    @pong.query[:access_token] = ENV["TOKEN"]
+    @pong.header[:accept]      = "application/vnd.github+json"
+    @notifier                  ||= Slack::Notifier.new ENV["WEB_HOOK_URL"]
   end
 
   def self.data_base_tables
@@ -14,7 +14,7 @@ class TodayChecker < ActiveRecord::Base
   end
 
   def self.repo_call
-    JSON.parse(@connection.get("repos/#{@user}/#{@repo}/commits").
+    JSON.parse(@pong.get("repos/#{@user}/#{@repo}/commits").
     body)[0]["commit"]["committer"]["date"]
   end
 

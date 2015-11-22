@@ -70,13 +70,12 @@
         null,
         null
       ],
-      "/Users/RJPB/Personal-Project/auto/app/controllers/api/v1/today_checkers_controller.rb": [
+      "/Users/RJPB/Personal-Project/auto/app/controllers/api/v1/big_workspaces_controller.rb": [
         1,
         1,
         null,
         1,
-        3,
-        3,
+        2,
         null,
         null
       ],
@@ -88,6 +87,39 @@
         null
       ],
       "/Users/RJPB/Personal-Project/auto/app/helpers/application_helper.rb": [
+        1,
+        null
+      ],
+      "/Users/RJPB/Personal-Project/auto/app/serializers/big_workspace_serializer.rb": [
+        1,
+        1,
+        null
+      ],
+      "/Users/RJPB/Personal-Project/auto/app/controllers/api/v1/classroom_cs_controller.rb": [
+        1,
+        1,
+        null,
+        1,
+        2,
+        null,
+        null
+      ],
+      "/Users/RJPB/Personal-Project/auto/app/serializers/classroom_c_serializer.rb": [
+        1,
+        1,
+        null
+      ],
+      "/Users/RJPB/Personal-Project/auto/app/controllers/api/v1/classroom_as_controller.rb": [
+        1,
+        1,
+        null,
+        1,
+        2,
+        null,
+        null
+      ],
+      "/Users/RJPB/Personal-Project/auto/app/serializers/classroom_a_serializer.rb": [
+        1,
         1,
         null
       ],
@@ -310,46 +342,14 @@
         null,
         null
       ],
-      "/Users/RJPB/Personal-Project/auto/app/serializers/classroom_a_serializer.rb": [
-        1,
-        1,
-        null
-      ],
-      "/Users/RJPB/Personal-Project/auto/app/controllers/api/v1/classroom_cs_controller.rb": [
+      "/Users/RJPB/Personal-Project/auto/app/controllers/api/v1/today_checkers_controller.rb": [
         1,
         1,
         null,
         1,
-        2,
+        3,
+        3,
         null,
-        null
-      ],
-      "/Users/RJPB/Personal-Project/auto/app/serializers/classroom_c_serializer.rb": [
-        1,
-        1,
-        null
-      ],
-      "/Users/RJPB/Personal-Project/auto/app/controllers/api/v1/classroom_as_controller.rb": [
-        1,
-        1,
-        null,
-        1,
-        2,
-        null,
-        null
-      ],
-      "/Users/RJPB/Personal-Project/auto/app/controllers/api/v1/big_workspaces_controller.rb": [
-        1,
-        1,
-        null,
-        1,
-        2,
-        null,
-        null
-      ],
-      "/Users/RJPB/Personal-Project/auto/app/serializers/big_workspace_serializer.rb": [
-        1,
-        1,
         null
       ],
       "/Users/RJPB/Personal-Project/auto/app/controllers/api/v1/classroom_bs_controller.rb": [
@@ -367,6 +367,6 @@
         null
       ]
     },
-    "timestamp": 1448160429
+    "timestamp": 1448162685
   }
 }

@@ -2,7 +2,7 @@ class ContentFetcher
   attr_reader :mod_date, :date, :cohorts, :data
 
   def initialize(mod_date, date, cohorts = "", data = "")
-    @mod_date = mod_date
+    @mod_date      = mod_date
     @date          = date
     @cohorts       = cohorts
     @data          = data

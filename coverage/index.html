@@ -14,7 +14,7 @@
       <img src="./assets/0.10.0/loading.gif" alt="loading"/>
     </div>
     <div id="wrapper" style="display:none;">
-      <div class="timestamp">Generated <abbr class="timeago" title="2015-11-21T19:47:09-07:00">2015-11-21T19:47:09-07:00</abbr></div>
+      <div class="timestamp">Generated <abbr class="timeago" title="2015-11-21T20:24:45-07:00">2015-11-21T20:24:45-07:00</abbr></div>
       <ul class="group_tabs"></ul>
 
       <div id="content">
@@ -1305,7 +1305,7 @@
         <li class="covered" data-hits="92" data-linenumber="5">
           <span class="hits">92</span>
           
-          <code class="ruby">    @mod_date = mod_date</code>
+          <code class="ruby">    @mod_date      = mod_date</code>
         </li>
       
         <li class="covered" data-hits="92" data-linenumber="6">
@@ -2637,37 +2637,37 @@
         <li class="covered" data-hits="3" data-linenumber="4">
           <span class="hits">3</span>
           
-          <code class="ruby">    @user = &quot;turingschool&quot;</code>
+          <code class="ruby">    @user                      = &quot;turingschool&quot;</code>
         </li>
       
         <li class="covered" data-hits="3" data-linenumber="5">
           <span class="hits">3</span>
           
-          <code class="ruby">    @repo = &quot;today&quot;</code>
+          <code class="ruby">    @repo                      = &quot;today&quot;</code>
         </li>
       
         <li class="covered" data-hits="3" data-linenumber="6">
           <span class="hits">3</span>
           
-          <code class="ruby">    @connection = Hurley::Client.new(&quot;https://api.github.com&quot;)</code>
+          <code class="ruby">    @pong                      ||= Hurley::Client.new(&quot;https://api.github.com&quot;)</code>
         </li>
       
         <li class="covered" data-hits="3" data-linenumber="7">
           <span class="hits">3</span>
           
-          <code class="ruby">    @connection.query[:access_token] = ENV[&quot;TOKEN&quot;]</code>
+          <code class="ruby">    @pong.query[:access_token] = ENV[&quot;TOKEN&quot;]</code>
         </li>
       
         <li class="covered" data-hits="3" data-linenumber="8">
           <span class="hits">3</span>
           
-          <code class="ruby">    @connection.header[:accept] = &quot;application/vnd.github+json&quot;</code>
+          <code class="ruby">    @pong.header[:accept]      = &quot;application/vnd.github+json&quot;</code>
         </li>
       
         <li class="covered" data-hits="3" data-linenumber="9">
           <span class="hits">3</span>
           
-          <code class="ruby">    @notifier = Slack::Notifier.new ENV[&quot;WEB_HOOK_URL&quot;]</code>
+          <code class="ruby">    @notifier                  ||= Slack::Notifier.new ENV[&quot;WEB_HOOK_URL&quot;]</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="10">
@@ -2715,7 +2715,7 @@
         <li class="covered" data-hits="8" data-linenumber="17">
           <span class="hits">8</span>
           
-          <code class="ruby">    JSON.parse(@connection.get(&quot;repos/#{@user}/#{@repo}/commits&quot;).</code>
+          <code class="ruby">    JSON.parse(@pong.get(&quot;repos/#{@user}/#{@repo}/commits&quot;).</code>
         </li>
       
         <li class="never" data-hits="" data-linenumber="18">
