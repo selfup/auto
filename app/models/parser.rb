@@ -8,8 +8,8 @@ class Parser
     @mod_date       = mod_date
     @data           ||= {}
     @teacher        = ["Unknown"]
-    @cohorts        = %w(1505 1507 1508 1510)
-    @teachers       = %w(Jeff Josh Rachel Jorge Steve Horace Andrew Mike Tess)
+    @cohorts        ||= %w(1507 1508 1510 1511)
+    @teachers       ||= %w(Jeff Josh Rachel Jorge Steve Horace Andrew Mike Tess)
     @day_time       ||= DayTracker.new.day_time
     @date           ||= DayTracker.new.date
     @weekend        ||= DayTracker.new(weekend!).weekend
